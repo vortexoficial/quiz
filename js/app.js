@@ -739,6 +739,7 @@
         score: { total: score.total, byOrgan: score.byOrgan },
         levelKey: score.levelKey,
         levelTitle: score.levelTitle,
+        finalPhase: currentLevel.finalPhase,
         createdAt,
         submittedAt,
       };
@@ -746,6 +747,7 @@
       try {
         let firebaseResult = null;
         let emailResult = null;
+        let gasResult = null;
 
         // Firebase
         if (typeof window.saveLeadAndAnswers === "function") {
@@ -765,10 +767,20 @@
           console.log("[GPSEmail] Não configurado/carregado. Payload:", payload);
         }
 
+        // Google Apps Script (Webhook)
+        if (window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function") {
+          gasResult = await window.GPSGAS.sendResultToAppsScript(payload);
+        } else {
+          console.log("[GPSGAS] Não configurado/carregado. Payload:", payload);
+        }
+
         const skippedFirebase = firebaseResult && firebaseResult.skipped === true;
         const skippedEmail = emailResult && emailResult.skipped === true;
+        const skippedGas = gasResult && gasResult.skipped === true;
         const didSomething =
-          (firebaseResult && firebaseResult.ok === true) || (emailResult && emailResult.ok === true);
+          (firebaseResult && firebaseResult.ok === true) ||
+          (emailResult && emailResult.ok === true) ||
+          (gasResult && gasResult.ok === true);
 
         // CTA URL: se definida, abre em nova aba; senão, mostra alert.
         const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";

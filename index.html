@@ -90,6 +90,17 @@
     };
 
     /*
+      2.1. GOOGLE APPS SCRIPT (Webhook + Gmail HTML) - GRATUITO
+      - Cole a URL /exec do Web App
+      - Token: precisa ser o mesmo SECRET_TOKEN do Apps Script
+      - Observação: em site público (GitHub Pages), esse token ficará visível no código.
+    */
+    window.GPSGASConfig = {
+      webhookUrl: "https://script.google.com/macros/s/AKfycby9aMJ-VifaGWSvRIwORxhL-s47rIQgMlIs_z2JjTA4jJUOvpGHTTDwxa73idzoZnC9/exec",
+      token: "COLE_SEU_TOKEN_AQUI"
+    };
+
+    /*
       3. LINK DE REDIRECIONAMENTO (CTA Botão Final)
       - Deixe vazio "" para apenas mostrar um alerta
       - Coloque uma URL "https://..." para abrir o WhatsApp ou página de vendas
@@ -126,6 +137,7 @@
   <script src="./js/storage.js" defer></script>
   <script src="./js/firebase.js" defer></script>
   <script src="./js/email.js" defer></script>
+  <script src="./js/gas.js" defer></script>
   <script src="./js/app.js" defer></script>
 </body>
 </html>
