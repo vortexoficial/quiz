@@ -757,6 +757,19 @@
       } catch {
         popup = null;
       }
+
+      // Alguns navegadores retornam um objeto mesmo com popup bloqueado.
+      // Então fazemos um fallback: se a aba não abrir (ou fechar), redireciona na mesma aba.
+      const fallbackTimer = window.setTimeout(function () {
+        try {
+          if (!popup || popup.closed) {
+            window.location.href = targetUrl;
+          }
+        } catch {
+          window.location.href = targetUrl;
+        }
+      }, 600);
+
       if (!popup) {
         // Melhor esforço: tentar enviar via Apps Script com sendBeacon antes de sair
         try {
