@@ -741,6 +741,35 @@
         submittedAt,
       };
 
+      // Importante: abrir o WhatsApp imediatamente (antes de await) para não ser bloqueado.
+      const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
+      const fallbackWhatsappUrl =
+        "https://wa.me/5513988241825?text=" +
+        encodeURIComponent(
+          "Olá! Concluí o Check-up K2 – Estrutura & Lucro e quero agendar minha Sessão Estratégica."
+        );
+      const targetUrl = url || fallbackWhatsappUrl;
+
+      // Tenta abrir em nova aba; se o navegador bloquear, navega na mesma aba.
+      let popup = null;
+      try {
+        popup = window.open(targetUrl, "_blank", "noopener,noreferrer");
+      } catch {
+        popup = null;
+      }
+      if (!popup) {
+        // Melhor esforço: tentar enviar via Apps Script com sendBeacon antes de sair
+        try {
+          if (window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function") {
+            window.GPSGAS.sendResultToAppsScript(payload);
+          }
+        } catch {
+          // noop
+        }
+        window.location.href = targetUrl;
+        return;
+      }
+
       try {
         let firebaseResult = null;
         let emailResult = null;
@@ -779,14 +808,7 @@
           (emailResult && emailResult.ok === true) ||
           (gasResult && gasResult.ok === true);
 
-        // CTA URL: se definida, abre em nova aba; senão, usa fallback para WhatsApp.
-        const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
-        const fallbackWhatsappUrl =
-          "https://wa.me/5513988241825?text=" +
-          encodeURIComponent(
-            "Olá! Concluí o Check-up K2 – Estrutura & Lucro e quero agendar minha Sessão Estratégica."
-          );
-        window.open(url || fallbackWhatsappUrl, "_blank", "noopener,noreferrer");
+        // Direcionamento já foi feito no início do clique.
 
         // Feedback mínimo só quando algo foi realmente enviado
         if (hint && didSomething) hint.textContent = "Solicitação registrada.";
