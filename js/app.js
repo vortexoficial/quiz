@@ -750,38 +750,18 @@
         );
       const targetUrl = url || fallbackWhatsappUrl;
 
-      // Tenta abrir em nova aba; se o navegador bloquear, navega na mesma aba.
-      let popup = null;
+      // Dispara integrações em background (não bloqueia o redirecionamento)
       try {
-        popup = window.open(targetUrl, "_blank", "noopener,noreferrer");
+        if (window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function") {
+          window.GPSGAS.sendResultToAppsScript(payload);
+        }
       } catch {
-        popup = null;
+        // noop
       }
 
-      // Alguns navegadores retornam um objeto mesmo com popup bloqueado.
-      // Então fazemos um fallback: se a aba não abrir (ou fechar), redireciona na mesma aba.
-      const fallbackTimer = window.setTimeout(function () {
-        try {
-          if (!popup || popup.closed) {
-            window.location.href = targetUrl;
-          }
-        } catch {
-          window.location.href = targetUrl;
-        }
-      }, 600);
-
-      if (!popup) {
-        // Melhor esforço: tentar enviar via Apps Script com sendBeacon antes de sair
-        try {
-          if (window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function") {
-            window.GPSGAS.sendResultToAppsScript(payload);
-          }
-        } catch {
-          // noop
-        }
-        window.location.href = targetUrl;
-        return;
-      }
+      // Redireciona SEMPRE na mesma aba (mais confiável que popup)
+      window.location.href = targetUrl;
+      return;
 
       try {
         let firebaseResult = null;
