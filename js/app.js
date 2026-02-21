@@ -593,6 +593,33 @@
 
     const currentLevel = LEVEL_DATA[score.levelKey] || LEVEL_DATA.fragilizada;
 
+    function buildAnswersDetailed() {
+      const questions = window.GPSQuestions && Array.isArray(window.GPSQuestions.QUESTIONS) ? window.GPSQuestions.QUESTIONS : [];
+      const answerMap = state.answers && typeof state.answers === "object" ? state.answers : {};
+
+      return questions
+        .map((q, index) => {
+          const qid = String(q.id);
+          const points = Number(answerMap[qid]);
+          const safePoints = Number.isFinite(points) ? Math.min(Math.max(Math.floor(points), 0), 2) : null;
+          const selectedOption = Array.isArray(q.options)
+            ? q.options.find((o) => Number(o.points) === safePoints)
+            : null;
+
+          const organUI = getOrganUIFromQuestion(q, index + 1);
+
+          return {
+            id: q.id,
+            organKey: q.organ || "",
+            organLabel: organUI && organUI.label ? organUI.label : "",
+            question: q.text || "",
+            selectedText: selectedOption && selectedOption.text ? selectedOption.text : "",
+            points: safePoints,
+          };
+        })
+        .filter((x) => x && x.id);
+    }
+
     const organReading = [ORGAN_UI.cerebro, ORGAN_UI.coracao, ORGAN_UI.pulmao, ORGAN_UI.sangue]
       .map((o) => {
         const value = score.byOrgan && Object.prototype.hasOwnProperty.call(score.byOrgan, o.key) ? score.byOrgan[o.key] : 0;
@@ -733,9 +760,14 @@
         quizName: QUIZ_NAME,
         lead: state.lead,
         answers: state.answers,
+        answersDetailed: buildAnswersDetailed(),
         score: { total: score.total, byOrgan: score.byOrgan },
+        maxScore,
         levelKey: score.levelKey,
         levelTitle: score.levelTitle,
+        diagnosis: currentLevel.diagnosis,
+        priorities: currentLevel.priorities,
+        institutional: currentLevel.institutional,
         finalPhase: currentLevel.finalPhase,
         createdAt,
         submittedAt,
