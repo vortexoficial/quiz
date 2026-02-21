@@ -9,7 +9,15 @@
   <link rel="stylesheet" href="./css/styles.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body class="is-loading">
+  <div class="loader-overlay" id="appLoader" role="status" aria-live="polite" aria-label="Carregando">
+    <div class="loader-center">
+      <div class="loader-ring" aria-hidden="true"></div>
+      <img class="loader-logo" src="./assets/logo.png" alt="" aria-hidden="true" decoding="async" />
+      <span class="sr-only">Carregando...</span>
+    </div>
+  </div>
+
   <a class="skip-link" href="#stepContent">Pular para o conteúdo</a>
 
   <main class="page">
@@ -87,6 +95,30 @@
       - Coloque uma URL "https://..." para abrir o WhatsApp ou página de vendas
     */
     window.CTA_URL = "https://wa.me/5511999999999?text=Quero%20agendar%20minha%20Sess%C3%A3o%20Estrat%C3%A9gica";
+  </script>
+
+  <script>
+    (function () {
+      const LOADER_MS = 1400;
+      const FADE_MS = 600;
+
+      function hideLoader() {
+        const loader = document.getElementById("appLoader");
+        if (!loader) {
+          document.body.classList.remove("is-loading");
+          return;
+        }
+
+        loader.classList.add("loader-overlay--hide");
+
+        window.setTimeout(function () {
+          loader.parentNode && loader.parentNode.removeChild(loader);
+          document.body.classList.remove("is-loading");
+        }, FADE_MS);
+      }
+
+      window.setTimeout(hideLoader, LOADER_MS);
+    })();
   </script>
 
   <script src="./js/ui.js" defer></script>
