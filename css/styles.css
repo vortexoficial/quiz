@@ -1,0 +1,1466 @@
+:root {
+  /* Cores Principais - Nova Paleta */
+  --color-primary: #000000;
+  --color-primary-dark: #111111;
+
+  --color-accent: #C6A96B;
+  --color-accent-dark: #A8894F;
+
+  --color-background: #FFFFFF;
+  --color-background-soft: #F8F9FB;
+
+  --color-text: #0A0A0A;
+  --color-text-secondary: #2A2A2A;
+
+  --color-border: #E5E7EB;
+  
+  /* Mantido para compatibilidade semântica (se houver referencia não mapeada) mas remapeado para a nova paleta */
+  --green-900: var(--color-primary);
+  --green-800: var(--color-primary-dark);
+  --green-100: var(--color-background-soft); 
+  --gold-400: var(--color-accent);
+  --gold-500: var(--color-accent-dark);
+  --offwhite: var(--color-background-soft);
+  --white: var(--color-background);
+  
+  /* Estados */
+  --border-light: var(--color-border);
+  --border-hover: var(--color-text-secondary); /* Aprox */
+  --border-focus: var(--color-accent);
+  
+  /* Design Tokens */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  
+  --shadow-sm: 0 2px 4px rgba(27, 42, 68, 0.04);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.10);
+  --shadow-glow: 0 0 0 4px rgba(198, 169, 107, 0.2);
+  
+  /* Tipografia */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  
+  /* Background Premium */
+  background-color: var(--color-primary);
+  background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background-attachment: fixed;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  background: var(--color-background);
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  z-index: 100;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-primary);
+}
+.skip-link:focus {
+  left: 12px;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+/* --- CARD PRINCIPAL --- */
+.card {
+  width: 100%;
+  max-width: 920px;
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-accent); /* Borda Dourada Fina */
+}
+
+/* --- HEADER --- */
+.card__header {
+  position: relative;
+  background: var(--color-primary); /* Fundo Azul */
+  border-bottom: 1px solid var(--color-accent); /* Linha divisória sutil dourada */
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+}
+
+@media (min-width: 768px) {
+  .header-top {
+    padding: 24px 40px;
+  }
+}
+
+.brand__logo {
+  height: 120px; /* Aumentado significativamente para desktop */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  opacity: 0.8;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--color-background-soft);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.header-meta__value {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Barra de Progresso */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-background-soft);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: none;
+}
+
+/* --- CONTEÚDO --- */
+.card__content {
+  background: var(--color-background);
+  flex: 1;
+}
+
+.content {
+  padding: 24px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 40px;
+    max-width: 800px;
+  }
+}
+
+/* Tipografia Conteúdo */
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--color-text);
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .h1 { font-size: 28px; }
+}
+
+.lead {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  margin: 0 0 32px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Forms & Inputs */
+.form {
+  margin-top: 24px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column-reverse; /* Importante para que o :focus + label funcione */
+  position: relative;
+  margin-top: 8px; /* Espaço para o label flutuante */
+}
+
+/* Floating Label Styles Ajustes */
+.floating-label .field__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: transparent; /* Importante para ver o fundo do card se necessário, mas geralmente white */
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  z-index: 1; /* Input precisa estar acima para ser clicável */
+}
+
+.floating-label {
+  position: relative;
+  background-color: var(--color-background); /* Garante fundo branco para o corte funcionar */
+  border-radius: var(--radius-md);
+}
+
+.floating-label .field__label {
+  position: absolute;
+  left: 12px;
+  top: 17px;
+  padding: 0 4px;
+  background-color: transparent;
+  color: #71717a;
+  font-size: 16px;
+  font-weight: 400;
+  pointer-events: none;
+  transition: transform 0.2s, color 0.2s;
+  transform-origin: left top;
+  z-index: 2; /* Label acima do input quando não focado */
+}
+
+/* Quando focado ou com valor preenchido */
+.floating-label .field__input:focus,
+.floating-label .field__input:not(:placeholder-shown) {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.floating-label .field__input:focus ~ .field__label,
+.floating-label .field__input:not(:placeholder-shown) ~ .field__label {
+  transform: translateY(-28px) scale(0.85); /* Sobe para a borda */
+  background-color: var(--color-background); /* Fundo branco cobre a linha */
+  color: var(--color-accent);
+  font-weight: 500;
+  z-index: 5; /* Fica bem no topo */
+}
+
+.floating-label .field__input:not(:placeholder-shown):not(:focus) ~ .field__label {
+  color: var(--color-text-secondary); /* Retorna para cor neutra se não focado */
+}
+.floating-label .field__input:not(:placeholder-shown):not(:focus) {
+    border-color: var(--color-border);
+    box-shadow: none;
+}
+
+/* Footer do Form (Botão Continuar) */
+.form__footer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .form__footer {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.form__hint {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+}
+
+/* Botão Primário (Continuar) */
+.btn--primary {
+  height: 52px;
+  padding: 0 32px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-accent);
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(27, 42, 68, 0.2);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .btn--primary {
+    width: auto;
+  }
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+  color: var(--color-accent); /* Assegurando contrast */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(15, 28, 51, 0.25);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+.btn--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Opções de Resposta (Cards) */
+.options {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  text-align: left;
+}
+
+.option:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.option:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.option--selected {
+  background: var(--color-background-soft);
+  border-color: var(--color-accent);
+}
+
+.option__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  transition: color 0.2s;
+}
+
+.option--selected .option__icon {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+/* SVG Lucide */
+.option__icon svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2px;
+}
+
+.option__label {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--color-text);
+  flex: 1;
+}
+
+/* Navegação Inferior (Voltar) */
+.nav {
+  margin-top: 40px;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+}
+
+/* Botão Voltar (Estilo Moderno) */
+.nav__back {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.nav__back svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.5px;
+}
+
+.nav__back:hover {
+  background: var(--color-background-soft);
+  border-color: var(--color-border);
+  text-decoration: none;
+}
+
+.nav__back:focus {
+  outline: none;
+  box-shadow: var(--shadow-glow);
+  border-color: var(--color-accent);
+}
+
+/* Animações */
+.step-anim {
+  animation: fadeSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Painéis de Informação / Resultado */
+.panel {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.panel__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.panel__text {
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 24px 0;
+  width: 100%;
+}
+
+/* Badges e Footer */
+.badge-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-background-soft);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.page__footer {
+  margin-top: 24px;
+  opacity: 0.8;
+  text-align: center;
+  color: var(--color-background);
+  font-size: 13px;
+}
+
+.footnote { margin: 0; }
+
+/* Placeholder Spacer para nav */
+.nav__spacer { display: none; }
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .header-top { padding: 16px; }
+  .content { padding: 20px; }
+  .brand__logo { height: 75px; } /* Ajuste responsivo logo aumentado (era 40px) */
+  .h1 { font-size: 20px; }
+  .btn--primary { width: 100%; }
+  .option { padding: 16px; font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+  .step-anim {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Relatório Premium (Result Screen) - Check-up K2
+   ========================================================================== */
+
+/* Structure & Layout */
+.report-view {
+  margin: 0 -24px;
+  padding: 0 24px 24px;
+}
+
+/* 1. Header */
+.report-header {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.report-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.report-subtitle {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 2. Total Score Card */
+.score-card {
+  background: #F8F9FA;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.score-card__label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.score-card__value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
+}
+
+.score-card__total {
+  font-size: 16px;
+  color: #999;
+  font-weight: 400;
+}
+
+/* 3. Organ Grid */
+.organ-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 600px) {
+  .organ-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.organ-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.organ-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.organ-card__name {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.organ-card__value {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+}
+
+.organ-card__limit {
+  font-size: 12px;
+  color: #999;
+  font-weight: 400;
+}
+
+/* 4. Result Indicator */
+.result-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.indicator-square {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.indicator-fragilizada { background-color: #EF4444; } /* Vermelho */
+.indicator-consolidacao { background-color: #F59E0B; } /* Dourado */
+.indicator-escala { background-color: #10B981; } /* Verde */
+
+.result-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* 5. Content Blocks */
+.result-content {
+  margin-top: 24px;
+}
+
+.content-block {
+  margin-bottom: 28px;
+  border-top: 1px solid #F3F4F6;
+  padding-top: 24px;
+}
+
+.content-block__title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent-dark);
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.content-block p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+.priority-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.priority-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.priority-list li::before {
+  content: "•";
+  color: var(--color-accent);
+  font-weight: bold;
+  position: absolute;
+  left: 4px;
+}
+
+.final-highlight {
+  background: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%); /* Gold Gradient */
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 32px;
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.final-highlight p {
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 17px;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.5;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* 6. Action Area */
+.action-area {
+  margin-top: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-premium-cta {
+  height: 56px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.btn-premium-cta:hover {
+  background-color: #222;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.btn-text-back {
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.btn-text-back:hover {
+  color: #000;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .report-view {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .score-card__value {
+    font-size: 28px;
+  }
+  
+  .organ-card__value {
+    font-size: 18px;
+  }
+}
+
+/* ========================================================================== */
+/* Step 0 (Welcome) + Órgãos (Novos blocos visuais) */
+/* ========================================================================== */
+
+.welcome {
+  display: block;
+}
+
+.welcome__title {
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: var(--color-text);
+}
+
+.welcome__subtitle {
+  margin: 0 0 20px 0;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.how {
+  border-top: 1px solid var(--border-light);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.how__title {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.how__text {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.organ-chip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+  .organ-chip-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.organ-chip {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px;
+  border: 1px solid var(--border-light);
+  background: var(--color-background-soft);
+  border-radius: 12px;
+}
+
+.organ-chip__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--color-text);
+}
+
+.organ-chip__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.organ-chip__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px 0;
+}
+
+.organ-chip__desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.welcome__actions {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.welcome__actions .btn--primary {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Badge do órgão (telas de pergunta) */
+.organ-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-light);
+  background: var(--color-background-soft);
+  border-radius: 12px;
+  margin: 0 0 14px 0;
+}
+
+.organ-badge__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background: var(--color-background);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+.organ-badge__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.organ-badge__text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.organ-badge__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.organ-badge__subtitle {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.2;
+}
+
+/* Leitura por órgão (tela de resultado) */
+.organ-reading {
+  margin: 20px 0 28px 0;
+  border-top: 1px solid #F3F4F6;
+  padding-top: 20px;
+}
+
+.organ-reading__title {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--organ-gold-main); /* Gold Title */
+}
+
+.organ-reading__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Columns on mobile */
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .organ-reading__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .organ-reading__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.organ-reading-card {
+  border: 1px solid var(--organ-gold-border); /* Gold border */
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.organ-reading-card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.organ-reading-card__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--organ-gold-icon-bg); /* Gold BG */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--organ-gold-main); /* Gold Icon */
+  flex-shrink: 0;
+}
+
+.organ-reading-card__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.organ-reading-card__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--organ-gold-main); /* Gold Name */
+  line-height: 1.2;
+}
+
+.organ-reading-card__desc {
+  font-size: 11px; /* Slightly smaller for grid */
+  color: #666;
+  line-height: 1.3;
+  margin-bottom: auto; /* Push score to bottom */
+  min-height: 2.6em; /* Ensure some alignment */
+}
+
+.organ-reading-card__score {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--organ-gold-main); /* Gold Score */
+  margin-top: 12px;
+}
+
+.organ-reading-card__limit {
+  font-size: 12px;
+  font-weight: 500;
+  color: #777;
+  margin-left: 4px;
+}
+
+/* ========================================================================== 
+   Identidade Visual UNIFICADA (DOURADO) #C6A96B
+   ========================================================================== */
+
+:root {
+  /* Paleta Dourada Global */
+  --organ-gold-main: #C6A96B;
+  --organ-gold-bg: rgba(198, 169, 107, 0.08);
+  --organ-gold-border: rgba(198, 169, 107, 0.25);
+  --organ-gold-icon-bg: rgba(198, 169, 107, 0.12);
+
+  /* Mapeamento de Todos para Dourado */
+  --color-cerebro: var(--organ-gold-main);
+  --bg-cerebro: var(--organ-gold-bg);
+  --border-cerebro: var(--organ-gold-border);
+  --icon-bg-cerebro: var(--organ-gold-icon-bg);
+
+  --color-coracao: var(--organ-gold-main);
+  --bg-coracao: var(--organ-gold-bg);
+  --border-coracao: var(--organ-gold-border);
+  --icon-bg-coracao: var(--organ-gold-icon-bg);
+
+  --color-pulmao: var(--organ-gold-main);
+  --bg-pulmao: var(--organ-gold-bg);
+  --border-pulmao: var(--organ-gold-border);
+  --icon-bg-pulmao: var(--organ-gold-icon-bg);
+
+  --color-sangue: var(--organ-gold-main);
+  --bg-sangue: var(--organ-gold-bg);
+  --border-sangue: var(--organ-gold-border);
+  --icon-bg-sangue: var(--organ-gold-icon-bg);
+}
+
+/* Chips (Unificados) */
+.organ-chip--cerebro, .organ-chip--coracao, .organ-chip--pulmao, .organ-chip--sangue {
+  background-color: var(--organ-gold-bg);
+  border: 1px solid var(--organ-gold-border);
+}
+.organ-chip__icon {
+  background-color: var(--organ-gold-icon-bg) !important;
+  color: var(--organ-gold-main) !important;
+  border: none !important;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+
+/* Badges nas Perguntas (Unificados) */
+.organ-badge--cerebro, .organ-badge--coracao, .organ-badge--pulmao, .organ-badge--sangue {
+  background-color: var(--organ-gold-bg);
+  border-color: var(--organ-gold-border);
+}
+.organ-badge__icon {
+  background-color: var(--organ-gold-icon-bg) !important;
+  color: var(--organ-gold-main) !important;
+  border: none !important;
+}
+.organ-badge__title { 
+  color: var(--organ-gold-main) !important; 
+}
+
+
+/* Inputs Premium (Lead) - Label Fix */
+.field__input {
+  height: 56px !important;
+  border-radius: 12px;
+  padding: 0 16px; 
+  font-size: 16px;
+  border: 1px solid #E5E7EB;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.field__input:focus {
+  border-color: var(--organ-gold-main);
+  box-shadow: 0 0 0 4px rgba(198, 169, 107, 0.1);
+}
+
+.floating-label .field__label {
+  left: 12px; 
+  background-color: #fff;
+  padding: 0 4px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+/* Estado: Placeholder Visible (Label Centralizado) */
+.floating-label .field__input:placeholder-shown + .field__label {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: #666;
+  background-color: transparent;
+}
+
+/* Estado: Focado ou Preenchido (Label no Topo) */
+.floating-label .field__input:not(:placeholder-shown) + .field__label,
+.floating-label .field__input:focus + .field__label {
+  top: 0px; 
+  font-size: 12px;
+  transform: translateY(-50%);
+  font-weight: 500;
+  color: var(--organ-gold-main);
+  background-color: #fff;
+}
+
+@
+@/
+
+/* ========================================================================== 
+   Identidade Visual por �rg�o (Fase 0 + Perguntas) 
+   ========================================================================== */
+
+/* Vari�veis de �rg�os */
+:root {
+  /* C�REBRO (Azul) */
+  /* --color-cerebro: #3B82F6; */
+  --bg-cerebro: rgba(59, 130, 246, 0.08);
+  --border-cerebro: rgba(59, 130, 246, 0.25);
+  --icon-bg-cerebro: rgba(59, 130, 246, 0.12);
+
+  /* CORA��O (Vermelho) */
+  --color-coracao: #EF4444;
+  --bg-coracao: rgba(239, 68, 68, 0.08);
+  --border-coracao: rgba(239, 68, 68, 0.25);
+  --icon-bg-coracao: rgba(239, 68, 68, 0.12);
+
+  /* PULM�O (Verde) */
+  --color-pulmao: #10B981;
+  --bg-pulmao: rgba(16, 185, 129, 0.08);
+  --border-pulmao: rgba(16, 185, 129, 0.25);
+  --icon-bg-pulmao: rgba(16, 185, 129, 0.12);
+
+  /* SANGUE (Dourado) */
+  --color-sangue: #F59E0B;
+  --bg-sangue: rgba(245, 158, 11, 0.08);
+  --border-sangue: rgba(245, 158, 11, 0.25);
+  --icon-bg-sangue: rgba(245, 158, 11, 0.12);
+}
+
+/* Modificadores de Chips de �rg�o */
+.organ-chip--cerebro {
+  background-color: var(--bg-cerebro);
+  border: 1px solid var(--border-cerebro);
+}
+.organ-chip--cerebro .organ-chip__icon {
+  background-color: var(--icon-bg-cerebro);
+  color: var(--color-cerebro);
+  border: none;
+}
+
+.organ-chip--coracao {
+  background-color: var(--bg-coracao);
+  border: 1px solid var(--border-coracao);
+}
+.organ-chip--coracao .organ-chip__icon {
+  background-color: var(--icon-bg-coracao);
+  color: var(--color-coracao);
+  border: none;
+}
+
+.organ-chip--pulmao {
+  background-color: var(--bg-pulmao);
+  border: 1px solid var(--border-pulmao);
+}
+.organ-chip--pulmao .organ-chip__icon {
+  background-color: var(--icon-bg-pulmao);
+  color: var(--color-pulmao);
+  border: none;
+}
+
+.organ-chip--sangue {
+  background-color: var(--bg-sangue);
+  border: 1px solid var(--border-sangue);
+}
+.organ-chip--sangue .organ-chip__icon {
+  background-color: var(--icon-bg-sangue);
+  color: var(--color-sangue);
+  border: none;
+}
+
+.organ-chip__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+
+/* Modificadores de Badge nas Perguntas */
+.organ-badge--cerebro {
+  background-color: var(--bg-cerebro);
+  border-color: var(--border-cerebro);
+}
+.organ-badge--cerebro .organ-badge__icon {
+  background-color: var(--icon-bg-cerebro);
+  color: var(--color-cerebro);
+  border: none;
+}
+.organ-badge--cerebro .organ-badge__title { color: #3B82F6; }
+
+.organ-badge--coracao {
+  background-color: var(--bg-coracao);
+  border-color: var(--border-coracao);
+}
+.organ-badge--coracao .organ-badge__icon {
+  background-color: var(--icon-bg-coracao);
+  color: var(--color-coracao);
+  border: none;
+}
+.organ-badge--coracao .organ-badge__title { color: #EF4444; }
+
+.organ-badge--pulmao {
+  background-color: var(--bg-pulmao);
+  border-color: var(--border-pulmao);
+}
+.organ-badge--pulmao .organ-badge__icon {
+  background-color: var(--icon-bg-pulmao);
+  color: var(--color-pulmao);
+  border: none;
+}
+.organ-badge--pulmao .organ-badge__title { color: #10B981; }
+
+.organ-badge--sangue {
+  background-color: var(--bg-sangue);
+  border-color: var(--border-sangue);
+}
+.organ-badge--sangue .organ-badge__icon {
+  background-color: var(--icon-bg-sangue);
+  color: var(--color-sangue);
+  border: none;
+}
+.organ-badge--sangue .organ-badge__title { color: #F59E0B; }
+
+
+/* Inputs Premium (Lead) */
+.field__input {
+  height: 56px !important;
+  border-radius: 12px;
+  padding: 24px 16px 8px; /* Adjustment for floating label */
+  font-size: 16px;
+  border: 1px solid #E5E7EB;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.field__input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+}
+
+.floating-label .field__label {
+  left: 16px; 
+}
+
+/* Ajuste Label Flutuante para altura 56px */
+.floating-label .field__input:placeholder-shown + .field__label {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: #666;
+}
+
+.floating-label .field__input:not(:placeholder-shown) + .field__label,
+.floating-label .field__input:focus + .field__label {
+  top: 8px;
+  font-size: 11px;
+  transform: none;
+  font-weight: 600;
+  color: #000;
+}
+}
+
+
+/* ========================================================================== 
+   OVERRIDE FINAL - FORÇAR DOURADO E CORRIGIR LAYOUT
+   ========================================================================== */
+
+/* 1. Forçar Variáveis Douradas (Redefinição Final) */
+:root {
+  --organ-gold-main: #C6A96B;
+  --organ-gold-bg: rgba(198, 169, 107, 0.08);
+  --organ-gold-border: rgba(198, 169, 107, 0.25);
+  --organ-gold-icon-bg: rgba(198, 169, 107, 0.12);
+
+  /* Sobrescrevendo qualquer cor específica anterior */
+  --color-cerebro: var(--organ-gold-main);
+  --bg-cerebro: var(--organ-gold-bg);
+  --border-cerebro: var(--organ-gold-border);
+  --icon-bg-cerebro: var(--organ-gold-icon-bg);
+
+  --color-coracao: var(--organ-gold-main);
+  --bg-coracao: var(--organ-gold-bg);
+  --border-coracao: var(--organ-gold-border);
+  --icon-bg-coracao: var(--organ-gold-icon-bg);
+
+  --color-pulmao: var(--organ-gold-main);
+  --bg-pulmao: var(--organ-gold-bg);
+  --border-pulmao: var(--organ-gold-border);
+  --icon-bg-pulmao: var(--organ-gold-icon-bg);
+
+  --color-sangue: var(--organ-gold-main);
+  --bg-sangue: var(--organ-gold-bg);
+  --border-sangue: var(--organ-gold-border);
+  --icon-bg-sangue: var(--organ-gold-icon-bg);
+}
+
+/* 2. Forçar Badges e Chips */
+.organ-badge__title { color: var(--organ-gold-main) !important; }
+.organ-badge--cerebro .organ-badge__title,
+.organ-badge--coracao .organ-badge__title,
+.organ-badge--pulmao .organ-badge__title,
+.organ-badge--sangue .organ-badge__title {
+    color: var(--organ-gold-main) !important;
+}
+
+.organ-chip__icon {
+  background-color: var(--organ-gold-icon-bg) !important;
+  color: var(--organ-gold-main) !important;
+  border: none !important;
+}
+
+/* 3. Correção FINAL do Label Flutuante (Sobrepor o anterior) */
+.floating-label .field__label {
+  left: 12px !important; 
+  background-color: #fff !important;
+  padding: 0 4px !important;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+/* Estado: Placeholder Visible (Label Centralizado) */
+.floating-label .field__input:placeholder-shown + .field__label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 15px !important;
+  color: #666 !important;
+  background-color: transparent !important;
+}
+
+/* Estado: Focado ou Preenchido (Label no Topo - Corrigido para ficar na borda) */
+.floating-label .field__input:not(:placeholder-shown) + .field__label,
+.floating-label .field__input:focus + .field__label {
+  top: 0px !important; 
+  font-size: 12px !important;
+  transform: translateY(-50%) !important;
+  font-weight: 500 !important;
+  color: var(--organ-gold-main) !important;
+  background-color: #fff !important;
+}
+
+/* Garantir altura e padding corretos no input para casar com o label */
+.field__input {
+  height: 56px !important;
+  padding: 0 16px !important; /* Reset padding to center text vertically */
+}
+

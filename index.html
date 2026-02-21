@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>GPS Diagnóstico</title>
+  <link rel="icon" href="./assets/favicon.png" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <a class="skip-link" href="#stepContent">Pular para o conteúdo</a>
+
+  <main class="page">
+    <section class="card" aria-label="GPS Diagnóstico">
+      <header class="card__header">
+        <div class="header-top">
+          <div class="brand" aria-label="Marca">
+            <img
+              class="brand__logo"
+              src="./assets/logo.png"
+              alt="GPS Diagnóstico"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+
+          <div class="header-meta" aria-live="polite">
+            <span class="header-meta__label">Passo</span>
+            <span class="header-meta__value" id="stepIndicator">1 de 11</span>
+          </div>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </header>
+
+      <div class="card__content">
+        <div class="content" id="stepContent" role="region" aria-label="Conteúdo do passo">
+          <!-- Conteúdo será renderizado via ui.js -->
+        </div>
+      </div>
+    </section>
+
+    <footer class="page__footer" aria-label="Rodapé">
+      <p class="footnote">© <span id="year"></span> Check-up K2 – Estrutura & Lucro</p>
+    </footer>
+  </main>
+
+  <!-- CONFIGURAÇÕES DE INTEGRAÇÃO (Preencha os dados abaixo) -->
+  <script>
+    /* 
+      1. FIREBASE (Banco de dados)
+      - Crie um projeto no console.firebase.google.com
+      - Adicione um web app
+      - Copie o objeto firebaseConfig
+    */
+    window.GPSFirebaseConfig = {
+      firebaseConfig: {
+        apiKey: "SUA_API_KEY_AQUI",
+        authDomain: "seu-projeto.firebaseapp.com",
+        projectId: "seu-projeto",
+        storageBucket: "seu-projeto.appspot.com",
+        messagingSenderId: "123456789",
+        appId: "1:123456789:web:abcdef"
+      },
+      firestoreCollection: "leads_checkup_k2" // Nome da coleção no banco
+    };
+
+    /* 
+      2. EMAILJS (Envio de email)
+      - Crie conta no emailjs.com
+      - Adicione um serviço (ex: Gmail)
+      - Crie um template de email
+      - Copie as chaves em Account > API Keys
+    */
+    window.GPSEmailJSConfig = {
+      publicKey: "SUA_PUBLIC_KEY_AQUI",
+      serviceId: "service_xxx",
+      templateId: "template_xxx"
+    };
+
+    /*
+      3. LINK DE REDIRECIONAMENTO (CTA Botão Final)
+      - Deixe vazio "" para apenas mostrar um alerta
+      - Coloque uma URL "https://..." para abrir o WhatsApp ou página de vendas
+    */
+    window.CTA_URL = "https://wa.me/5511999999999?text=Quero%20agendar%20minha%20Sess%C3%A3o%20Estrat%C3%A9gica";
+  </script>
+
+  <script src="./js/ui.js" defer></script>
+  <script src="./js/questions.js" defer></script>
+  <script src="./js/storage.js" defer></script>
+  <script src="./js/firebase.js" defer></script>
+  <script src="./js/email.js" defer></script>
+  <script src="./js/app.js" defer></script>
+</body>
+</html>
