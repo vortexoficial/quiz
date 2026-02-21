@@ -725,7 +725,7 @@
         // Evita duplo clique
         btn.disabled = true;
       const oldText = btn.textContent;
-      btn.textContent = "Enviando...";
+      btn.textContent = "Direcionando...";
       if (hint) hint.textContent = "";
 
       const submittedAt = new Date().toISOString();
@@ -779,13 +779,14 @@
           (emailResult && emailResult.ok === true) ||
           (gasResult && gasResult.ok === true);
 
-        // CTA URL: se definida, abre em nova aba; senão, mostra alert.
+        // CTA URL: se definida, abre em nova aba; senão, usa fallback para WhatsApp.
         const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
-        if (url) {
-          window.open(url, "_blank", "noopener,noreferrer");
-        } else {
-          alert("Seu diagnóstico foi registrado. Nossa equipe entrará em contato.");
-        }
+        const fallbackWhatsappUrl =
+          "https://wa.me/5513988241825?text=" +
+          encodeURIComponent(
+            "Olá! Concluí o Check-up K2 – Estrutura & Lucro e quero agendar minha Sessão Estratégica."
+          );
+        window.open(url || fallbackWhatsappUrl, "_blank", "noopener,noreferrer");
 
         // Feedback mínimo só quando algo foi realmente enviado
         if (hint && didSomething) hint.textContent = "Solicitação registrada.";
