@@ -4,7 +4,7 @@
   "use strict";
 
   const STORAGE_KEY = "gps_diagnostico_state_v1";
-  const QUIZ_NAME = "Check-up K2 - Estrutura & Lucro";
+  const QUIZ_NAME = "Check-up K2 – Estrutura & Lucro";
 
   function defaultState() {
     return {

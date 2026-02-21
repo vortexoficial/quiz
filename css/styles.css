@@ -972,6 +972,13 @@ body.is-loading .skip-link {
   line-height: 1.6;
 }
 
+.welcome__note {
+  margin: 18px 0 0 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .how {
   border-top: 1px solid var(--border-light);
   padding-top: 20px;

@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  const QUIZ_NAME = "Check-up K2 - Estrutura & Lucro";
+  const QUIZ_NAME = "Check-up K2 – Estrutura & Lucro";
 
   function onlyDigits(value) {
     return String(value || "").replace(/\D+/g, "");
@@ -67,7 +67,7 @@
     pulmao: {
       key: "pulmao",
       label: "Pulmão",
-      subtitle: "Finanças, Giro e Sustentação",
+      subtitle: "Vendas, margem e lucro",
       icon: "activity",
       className: "organ-chip--pulmao",
       badgeClass: "organ-badge--pulmao"
@@ -240,19 +240,16 @@
     const bodyHtml = `
       <div class="welcome">
         <h2 class="welcome__title">${escapeHtml(QUIZ_NAME)}</h2>
-        <p class="welcome__subtitle">Um diagnóstico rápido para avaliar estrutura, operação e lucro, organizado por quatro pilares (órgãos).</p>
-
-        <div class="how" aria-label="Como funciona">
-          <h3 class="how__title">Como funciona</h3>
-          <p class="how__text">Você responderá 12 perguntas divididas em 4 áreas. Cada área avalia um pilar vital da sua operação. No final, você recebe seu diagnóstico e próximos passos recomendados.</p>
-        </div>
+        <p class="welcome__subtitle">Agora vamos analisar os 4 órgãos vitais da sua empresa:</p>
 
         <div class="organ-chip-grid" role="list" aria-label="Pilares do diagnóstico">
           ${organGridHtml}
         </div>
 
+        <p class="welcome__note">Seu diagnóstico será gerado automaticamente ao final.</p>
+
         <div class="welcome__actions">
-          <button class="btn btn--primary" type="button" id="startBtn">Iniciar diagnóstico</button>
+          <button class="btn btn--primary" type="button" id="startBtn">Iniciar Check-up</button>
         </div>
       </div>
     `.trim();
@@ -277,7 +274,7 @@
     // Modificado para usar estrutura de Floating Label
     // O input vem antes do span.field__label e usamos :placeholder-shown no CSS
     const bodyHtml = `
-      <p class="lead">Preencha seus dados para iniciar o diagnóstico.</p>
+      <p class="lead">Preencha seus dados para receber o diagnóstico.</p>
 
       <form class="form" id="leadForm" novalidate>
         <div class="grid">
