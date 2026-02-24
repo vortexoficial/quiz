@@ -410,7 +410,7 @@
     let levelTitle = "Estrutura Fragilizada";
     if (total >= 18) {
       levelKey = "escala";
-      levelTitle = "Estrutura Estratégica para Escala Sustentável";
+        levelTitle = "🟢 Estrutura Preparada para crescer";
     } else if (total >= 12) {
       levelKey = "consolidacao";
       levelTitle = "Estrutura em Consolidação";
@@ -619,7 +619,7 @@
       },
       escala: {
         colorClass: "indicator-escala",
-        title: "Estrutura Estratégica para Escala Sustentável",
+         title: "🟢 Estrutura Preparada para crescer",
         diagnosis: "Sua rede já possui operação organizada, liderança ativa, equipe engajada e alinhamento entre operação, margem e lucro. O foco agora é elevar performance e explorar oportunidades para resultados ainda mais consistentes.",
         priorities: [
           "Desenvolver lideranças e gestão de indicadores",
