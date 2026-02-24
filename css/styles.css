@@ -197,7 +197,7 @@ body {
   color: var(--color-accent);
   vertical-align: middle;
   position: relative;
-  top: 1px;
+  top: -1px;
 }
 
 .h1 .title-icon svg {
@@ -213,7 +213,6 @@ body {
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-accent);
   background: var(--color-background-soft);
-  top: 0;
 }
 
 @media (min-width: 768px) {
