@@ -56,6 +56,66 @@
     if (!dom.stepContent) return;
     dom.stepContent.innerHTML = html;
 
+    // Ícones customizados (quando não existir no Lucide)
+    const customIcons = {
+      pulmao:
+        '<img class="pulmao-icon" src="./assets/pulmao.png" alt="" aria-hidden="true" />',
+    };
+
+    Object.keys(customIcons).forEach((name) => {
+      const nodes = dom.stepContent.querySelectorAll(`i[data-lucide="${name}"]`);
+      nodes.forEach((node) => {
+        node.outerHTML = customIcons[name];
+      });
+    });
+
+    // Recolore o PNG do pulmão para a mesma cor dourada do tema (usa alpha como máscara)
+    // - Funciona quando o CSS mask não renderiza no Edge
+    // - Se o canvas for bloqueado (ex.: file:// com origem opaca), mantém o PNG original
+    const lungImgs = Array.from(dom.stepContent.querySelectorAll('img.pulmao-icon'));
+    lungImgs.forEach((img) => {
+      const parent = img.parentElement;
+      const targetColor = parent ? window.getComputedStyle(parent).color : "";
+
+      // Evita retrabalho
+      if (img.getAttribute("data-tinted") === "1") return;
+
+      const sourceUrl = img.getAttribute("src") || "";
+      if (!sourceUrl) return;
+
+      const source = new Image();
+      source.decoding = "async";
+      source.loading = "eager";
+      source.src = sourceUrl;
+
+      source.onload = function () {
+        try {
+          const width = Math.max(source.naturalWidth || 0, 1);
+          const height = Math.max(source.naturalHeight || 0, 1);
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) return;
+
+          // 1) Preenche com a cor do wrapper
+          ctx.clearRect(0, 0, width, height);
+          ctx.fillStyle = targetColor || "#C6A96B";
+          ctx.fillRect(0, 0, width, height);
+
+          // 2) Mantém só onde o PNG tem alpha
+          ctx.globalCompositeOperation = "destination-in";
+          ctx.drawImage(source, 0, 0, width, height);
+
+          const dataUrl = canvas.toDataURL("image/png");
+          img.src = dataUrl;
+          img.setAttribute("data-tinted", "1");
+        } catch {
+          // Fallback: deixa o PNG original
+        }
+      };
+    });
+
     // --- VISUAL ENHANCEMENTS (UI ONLY) ---
     // Injeta ícones Lucide nas opções de resposta
     const options = dom.stepContent.querySelectorAll('.option');

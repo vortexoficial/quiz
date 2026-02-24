@@ -68,7 +68,7 @@
       key: "pulmao",
       label: "Pulmão",
       subtitle: "Vendas, margem e lucro",
-      icon: "activity",
+      icon: "pulmao",
       className: "organ-chip--pulmao",
       badgeClass: "organ-badge--pulmao"
     },
@@ -81,6 +81,13 @@
       badgeClass: "organ-badge--sangue"
     },
   };
+
+  function renderLucideOrPulmaoIcon(iconName) {
+    if (String(iconName || "") === "pulmao") {
+      return '<img class="pulmao-icon" src="./assets/pulmao.png" alt="" aria-hidden="true" />';
+    }
+    return `<i data-lucide="${escapeAttr(iconName)}"></i>`;
+  }
 
   function getOrganUIFromQuestion(question, questionNumber) {
     const fromProp = question && typeof question.organ === "string" ? question.organ : "";
@@ -227,7 +234,7 @@
         const modifierClass = o.className ? ` ${o.className}` : "";
         return `
           <div class="organ-chip${modifierClass}" role="listitem">
-            <div class="organ-chip__icon" aria-hidden="true"><i data-lucide="${o.icon}"></i></div>
+            <div class="organ-chip__icon" aria-hidden="true">${renderLucideOrPulmaoIcon(o.icon)}</div>
             <div class="organ-chip__body">
               <div class="organ-chip__name">${escapeHtml(o.label)}</div>
               <div class="organ-chip__desc">${escapeHtml(o.subtitle)}</div>
@@ -239,7 +246,7 @@
 
     const bodyHtml = `
       <div class="welcome">
-        <h2 class="welcome__title">${escapeHtml(QUIZ_NAME)}</h2>
+        <h2 class="welcome__title">Bem vindo ao ${escapeHtml(QUIZ_NAME)}</h2>
         <p class="welcome__subtitle">Agora vamos analisar os 4 órgãos vitais da sua empresa:</p>
 
         <div class="organ-chip-grid" role="list" aria-label="Pilares do diagnóstico">
@@ -448,7 +455,7 @@
     
     const organBadgeHtml = `
       <div class="organ-badge${modifierClass}" aria-label="Órgão atual">
-        <span class="organ-badge__icon" aria-hidden="true"><i data-lucide="${organUI.icon}"></i></span>
+        <span class="organ-badge__icon" aria-hidden="true">${renderLucideOrPulmaoIcon(organUI.icon)}</span>
         <span class="organ-badge__text">
           <span class="organ-badge__title">${escapeHtml(organUI.label)}</span>
           <span class="organ-badge__subtitle">${escapeHtml(organUI.subtitle)}</span>
@@ -493,27 +500,58 @@
     const optionButtons = Array.from(document.querySelectorAll(".option[data-qid][data-value]"));
     optionButtons.forEach((btn) => {
       btn.addEventListener("click", function () {
+        // Evita duplo clique durante a animação/espera
+        if (btn.disabled) return;
+
         const qid = String(btn.getAttribute("data-qid") || "");
         const value = Number(btn.getAttribute("data-value") || 0);
         if (!qid || !Number.isFinite(value) || value < 0) return;
 
         state.answers[qid] = Math.floor(value);
 
-        // Salvar e avançar automaticamente
-        const total = getTotalSteps();
-        if (state.step < total) {
-          state.step = state.step + 1;
+        // Persiste a resposta imediatamente (antes do avanço)
+        persist();
+
+        // Feedback visual: marca seleção e mostra check antes de avançar
+        const backBtn = document.getElementById("backBtn");
+        if (backBtn) backBtn.disabled = true;
+
+        optionButtons.forEach((b) => {
+          b.disabled = true;
+          b.classList.remove("option--selected");
+          b.setAttribute("aria-pressed", "false");
+          const icon = b.querySelector(".option__icon");
+          if (icon) icon.innerHTML = '<i data-lucide="circle"></i>';
+        });
+
+        btn.disabled = true;
+        btn.classList.add("option--selected");
+        btn.setAttribute("aria-pressed", "true");
+        const selectedIcon = btn.querySelector(".option__icon");
+        if (selectedIcon) selectedIcon.innerHTML = '<i data-lucide="check-circle"></i>';
+        if (window.lucide && typeof window.lucide.createIcons === "function") {
+          window.lucide.createIcons();
+        }
+
+        // Avança automaticamente após um pequeno delay para o usuário ver o check
+        const ADVANCE_DELAY_MS = 500;
+        window.setTimeout(function () {
+          const total = getTotalSteps();
+
+          if (state.step < total) {
+            state.step = state.step + 1;
+            persist();
+            window.GPSUI.setStep(state.step, total);
+            render();
+            return;
+          }
+
+          // Último passo: marca como concluído e mantém em N/N
+          state.completed = true;
           persist();
           window.GPSUI.setStep(state.step, total);
           render();
-          return;
-        }
-
-        // Último passo: marca como concluído e mantém em 11/11
-        state.completed = true;
-        persist();
-        window.GPSUI.setStep(state.step, total);
-        render();
+        }, ADVANCE_DELAY_MS);
       });
     });
   }
@@ -561,8 +599,9 @@
           "Recuperar controle financeiro e operacional",
           "Alinhar a equipe para sustentar operação e proteger lucro"
         ],
-        institutional: "Seu diagnóstico foi recebido e será analisado pelas especialistas da K2 Business. Você poderá ser selecionado(a) para uma Sessão Estratégica K2, 1h online com as duas especialistas, para aprofundarmos seus desafios e direcionar próximos passos.",
-        finalPhase: "Toda virada começa com uma decisão bem acompanhada."
+        institutional:
+          "O próximo passo é avançar para sua Sessão Estratégica K2 com as fundadoras do método (60 minutos online, sem custo).\n\nEm 60 minutos, você terá direcionamento claro sobre o que precisa ajustar para fortalecer sua estrutura e ampliar lucro.\n\nVagas limitadas semanalmente para garantir direcionamento individual.",
+        finalPhase: "Agora é hora de transformar diagnóstico em decisão."
       },
       consolidacao: {
         colorClass: "indicator-consolidacao",
@@ -574,8 +613,9 @@
           "Consolidar padrões culturais e operacionais",
           "Proteger margem e lucro de variações operacionais"
         ],
-        institutional: "Seu diagnóstico foi recebido e será analisado pelas especialistas da K2 Business. Você poderá ser selecionado(a) para uma Sessão Estratégica K2, 1h online com as duas especialistas, para aprofundarmos seus desafios e direcionar próximos passos.",
-        finalPhase: "Ignorar os sinais hoje pode custar caro amanhã."
+        institutional:
+          "O próximo passo é avançar para sua Sessão Estratégica K2 com as fundadoras do método (60 minutos online, sem custo).\n\nEm 60 minutos, você terá direcionamento claro sobre o que precisa ajustar para fortalecer sua estrutura e ampliar lucro.\n\nVagas limitadas semanalmente para garantir direcionamento individual.",
+        finalPhase: "Agora é hora de transformar diagnóstico em decisão."
       },
       escala: {
         colorClass: "indicator-escala",
@@ -586,8 +626,9 @@
           "Otimizar processos e eficiência operacional",
           "Ampliar margem e lucro mantendo crescimento sustentável"
         ],
-        institutional: "Seu diagnóstico foi recebido e será analisado pelas especialistas da K2 Business. Você poderá ser selecionado(a) para uma Sessão Estratégica K2, 1h online com as duas especialistas, para aprofundarmos seus desafios e direcionar próximos passos.",
-        finalPhase: "Seu próximo salto começa com um passo estratégico."
+        institutional:
+          "O próximo passo é avançar para sua Sessão Estratégica K2 com as fundadoras do método (60 minutos online, sem custo).\n\nEm 60 minutos, você terá direcionamento claro sobre o que precisa ajustar para fortalecer sua estrutura e ampliar lucro.\n\nVagas limitadas semanalmente para garantir direcionamento individual.",
+        finalPhase: "Agora é hora de transformar diagnóstico em decisão."
       }
     };
 
@@ -626,7 +667,7 @@
         return `
           <div class="organ-reading-card">
             <div class="organ-reading-card__head">
-              <span class="organ-reading-card__icon" aria-hidden="true"><i data-lucide="${o.icon}"></i></span>
+              <span class="organ-reading-card__icon" aria-hidden="true">${renderLucideOrPulmaoIcon(o.icon)}</span>
               <span class="organ-reading-card__name">${escapeHtml(o.label)}</span>
             </div>
             <div class="organ-reading-card__desc">${escapeHtml(o.subtitle)}</div>
@@ -658,23 +699,8 @@
       <div class="report-view" role="region" aria-label="Relatório de Resultado">
         
         <div class="report-header">
-          <h2 class="panel__title">Check-up K2 - Estrutura & Lucro</h2>
+          <h2 class="panel__title">Avaliação Estratégica de Sua Empresa</h2>
           <p class="report-subtitle">Resultado do seu diagnóstico</p>
-        </div>
-
-        <div class="score-card">
-          <span class="score-card__label">Pontuação Total</span>
-          <div class="score-card__value">${score.total} <span class="score-card__total">/ ${maxScore}</span></div>
-        </div>
-
-
-        <div class="organ-reading" aria-label="Leitura por órgão">
-          <div class="organ-reading__header">
-            <h3 class="organ-reading__title">Leitura por órgão</h3>
-          </div>
-          <div class="organ-reading__grid">
-            ${organReading}
-          </div>
         </div>
 
         <div class="result-indicator">
@@ -688,11 +714,27 @@
             <p>${escapeHtml(currentLevel.diagnosis)}</p>
           </div>
 
-          <div class="content-block">
+          <div class="content-block content-block--priority">
             <h4 class="content-block__title">Prioridade Estratégica</h4>
             <ul class="priority-list">
               ${prioritiesHtml}
             </ul>
+          </div>
+
+          <div class="content-block content-block--scores">
+            <div class="score-card">
+              <span class="score-card__label">Pontuação Total</span>
+              <div class="score-card__value">${score.total} <span class="score-card__total">/ ${maxScore}</span></div>
+            </div>
+
+            <div class="organ-reading" aria-label="Leitura por órgão">
+              <div class="organ-reading__header">
+                <h3 class="organ-reading__title">Leitura por órgão</h3>
+              </div>
+              <div class="organ-reading__grid">
+                ${organReading}
+              </div>
+            </div>
           </div>
 
           <div class="content-block">
@@ -706,7 +748,7 @@
 
         <div class="action-area">
           <button class="btn-premium-cta" type="button" id="sessionBtn">
-            Quero a Sessão Estratégica
+            Quero solicitar minha Sessão Estratégica K2
           </button>
           
           <button class="btn-text-back" type="button" id="restartBtn">
@@ -721,7 +763,7 @@
 
     // Renderiza sem o botão "Voltar" padrão (showBack: false) pois criamos um customizado
     renderLayout({
-      title: "Concluído",
+      title: 'Concluído <span class="title-icon title-icon--seal" aria-hidden="true"><i data-lucide="check"></i></span>',
       bodyHtml,
       showBack: false, 
     });
