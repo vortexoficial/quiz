@@ -851,6 +851,7 @@ body {
   font-style: italic;
   line-height: 1.5;
   text-shadow: none;
+  text-align: center;
 }
 
 /* 6. Action Area */
@@ -976,6 +977,10 @@ body.is-loading .skip-link {
   box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
 
+.btn-premium-cta .cta-break-mobile {
+  display: none;
+}
+
 .btn-premium-cta:hover {
   background-color: #222;
   transform: translateY(-2px);
@@ -1001,6 +1006,10 @@ body.is-loading .skip-link {
   .report-view {
     margin: 0;
     padding: 0;
+  }
+
+  .btn-premium-cta .cta-break-mobile {
+    display: inline;
   }
   
   .score-card__value {
@@ -1107,14 +1116,17 @@ body.is-loading .skip-link {
 }
 
 /* Ícone do pulmão (PNG) - dimensionamento por wrapper */
-.organ-chip__icon .pulmao-icon {
+.organ-chip__icon .pulmao-icon,
+.organ-chip__icon .coracao-icon {
   width: 20px;
   height: 20px;
   display: block;
 }
 
 .organ-badge__icon .pulmao-icon,
-.organ-reading-card__icon .pulmao-icon {
+.organ-badge__icon .coracao-icon,
+.organ-reading-card__icon .pulmao-icon,
+.organ-reading-card__icon .coracao-icon {
   width: 18px;
   height: 18px;
   display: block;

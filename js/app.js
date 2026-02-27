@@ -86,6 +86,9 @@
     if (String(iconName || "") === "pulmao") {
       return '<img class="pulmao-icon" src="./assets/pulmao.png" alt="" aria-hidden="true" />';
     }
+    if (String(iconName || "") === "heart") {
+      return '<img class="coracao-icon" src="./assets/coracao.png" alt="" aria-hidden="true" />';
+    }
     return `<i data-lucide="${escapeAttr(iconName)}"></i>`;
   }
 
@@ -410,7 +413,7 @@
     let levelTitle = "Estrutura Fragilizada";
     if (total >= 18) {
       levelKey = "escala";
-        levelTitle = "🟢 Estrutura Preparada para crescer";
+        levelTitle = "Estrutura Preparada para crescer";
     } else if (total >= 12) {
       levelKey = "consolidacao";
       levelTitle = "Estrutura em Consolidação";
@@ -619,7 +622,7 @@
       },
       escala: {
         colorClass: "indicator-escala",
-         title: "🟢 Estrutura Preparada para crescer",
+         title: "Estrutura Preparada para crescer",
         diagnosis: "Sua rede já possui operação organizada, liderança ativa, equipe engajada e alinhamento entre operação, margem e lucro. O foco agora é elevar performance e explorar oportunidades para resultados ainda mais consistentes.",
         priorities: [
           "Desenvolver lideranças e gestão de indicadores",
@@ -748,7 +751,7 @@
 
         <div class="action-area">
           <button class="btn-premium-cta" type="button" id="sessionBtn">
-            Quero solicitar minha Sessão Estratégica K2
+            Quero solicitar minha<span class="cta-break-mobile"><br /></span>Sessão Estratégica&nbsp;K2
           </button>
           
           <button class="btn-text-back" type="button" id="restartBtn">
@@ -818,7 +821,7 @@
       // Importante: abrir o WhatsApp imediatamente (antes de await) para não ser bloqueado.
       const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
       const fallbackWhatsappUrl =
-        "https://wa.me/5513988241825?text=" +
+        "https://wa.me/5513991982145?text=" +
         encodeURIComponent(
           "Olá! Concluí o Check-up K2 – Estrutura & Lucro e quero agendar minha Sessão Estratégica."
         );
