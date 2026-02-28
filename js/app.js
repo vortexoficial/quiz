@@ -823,7 +823,7 @@
       const fallbackWhatsappUrl =
         "https://wa.me/5513991982145?text=" +
         encodeURIComponent(
-          "Olá! Concluí o Check-up K2 – Estrutura & Lucro e quero agendar minha Sessão Estratégica."
+          "Quero mais clareza e direção para meu negócio e saber como a K2 pode me ajudar."
         );
       const targetUrl = url || fallbackWhatsappUrl;
 
