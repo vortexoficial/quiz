@@ -4,7 +4,7 @@
   "use strict";
 
   const STORAGE_KEY = "gps_diagnostico_state_v1";
-  const QUIZ_NAME = "Check-up K2 – Estrutura & Lucro";
+  const QUIZ_NAME = "CHECK-UP LOJA LUCRATIVA";
 
   function defaultState() {
     return {
@@ -29,6 +29,9 @@
       levelKey: "",
       levelTitle: "",
       createdAt: "",
+      submittedAt: "",
+      pendingSubmit: false,
+      pendingPayload: "",
     };
   }
 
@@ -64,6 +67,9 @@
       levelKey: typeof raw.levelKey === "string" ? raw.levelKey : "",
       levelTitle: typeof raw.levelTitle === "string" ? raw.levelTitle : "",
       createdAt: typeof raw.createdAt === "string" ? raw.createdAt : "",
+      submittedAt: typeof raw.submittedAt === "string" ? raw.submittedAt : "",
+      pendingSubmit: typeof raw.pendingSubmit === "boolean" ? raw.pendingSubmit : false,
+      pendingPayload: typeof raw.pendingPayload === "string" ? raw.pendingPayload : "",
     };
 
     if (isPlainObject(raw.score)) {

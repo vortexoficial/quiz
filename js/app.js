@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  const QUIZ_NAME = "Check-up K2 – Estrutura & Lucro";
+  const QUIZ_NAME = "CHECK-UP LOJA LUCRATIVA";
 
   function onlyDigits(value) {
     return String(value || "").replace(/\D+/g, "");
@@ -413,7 +413,7 @@
     let levelTitle = "Estrutura Fragilizada";
     if (total >= 18) {
       levelKey = "escala";
-        levelTitle = "Estrutura Preparada para crescer";
+      levelTitle = "Estrutura Estratégica para Escala Sustentável";
     } else if (total >= 12) {
       levelKey = "consolidacao";
       levelTitle = "Estrutura em Consolidação";
@@ -596,42 +596,70 @@
       fragilizada: {
         colorClass: "indicator-fragilizada",
         title: "Estrutura Fragilizada",
-        diagnosis: "Seu diagnóstico indica fragilidades que afetam margem, lucro e previsibilidade da operação. Sem organização e controle claros, resultados podem ser consumidos mesmo com faturamento relevante.",
-        priorities: [
-          "Reorganizar a base de gestão e fortalecer lideranças",
-          "Recuperar controle financeiro e operacional",
-          "Alinhar a equipe para sustentar operação e proteger lucro"
+        diagnosis:
+          "Seu diagnóstico indica que sua empresa ainda opera com alta dependência de pessoas, baixa previsibilidade e pouca estrutura de gestão.\n\nIsso significa que, mesmo com esforço constante, os resultados ainda estão mais ligados à execução diária do que a um sistema organizado de crescimento.\n\nNa prática, isso gera três impactos diretos:",
+        impacts: [
+          "Decisões inconsistentes e reativas",
+          "Dependência excessiva do dono ou de pessoas-chave",
+          "Dificuldade em proteger margem e lucro ao longo do tempo"
         ],
-        institutional:
-          "O próximo passo é avançar para sua Sessão Estratégica K2 com as fundadoras do método (60 minutos online, sem custo).\n\nEm 60 minutos, você terá direcionamento claro sobre o que precisa ajustar para fortalecer sua estrutura e ampliar lucro.\n\nVagas limitadas semanalmente para garantir direcionamento individual.",
-        finalPhase: "Agora é hora de transformar diagnóstico em decisão."
+        priorityIntro:
+          "O foco neste momento não é acelerar crescimento. É estruturar a base da sua empresa.\n\nIsso envolve:",
+        priorities: [
+          "Organizar a forma como as decisões são tomadas",
+          "Fortalecer liderança e autonomia operacional",
+          "Criar controle real sobre margem, vendas e operação"
+        ],
+        direction:
+          "Empresas nesse estágio não têm problema de esforço. Têm problema de estrutura.\n\nE sem estrutura, o crescimento tende a amplificar os problemas existentes, não resolver.",
+        nextStep:
+          "Você poderá ser selecionado(a) para uma Sessão Estratégica K2 (online, 60 minutos) com as especialistas do método.\n\nNessa sessão, vamos analisar os principais pontos que estão limitando sua estrutura hoje e o que precisa ser reorganizado primeiro para sua empresa evoluir com segurança.",
+        finalPhase: "Crescimento sem estrutura não sustenta resultado."
       },
       consolidacao: {
         colorClass: "indicator-consolidacao",
         title: "Estrutura em Consolidação",
-        diagnosis: "Sua rede apresenta organização básica e liderança ativa, mas ainda existem pontos importantes a fortalecer para reduzir riscos e garantir estabilidade.",
+        diagnosis:
+          "Seu diagnóstico indica que sua empresa já possui organização básica e algum nível de gestão, mas ainda depende de ajustes importantes para ganhar previsibilidade e consistência.\n\nNa prática, isso significa que a empresa já funciona, mas ainda oscila em:",
+        impacts: [
+          "Resultados",
+          "Execução",
+          "Controle de indicadores",
+          "Alinhamento da equipe"
+        ],
+        priorityIntro:
+          "O próximo nível de evolução não está em “fazer mais”. Está em fazer com consistência e controle.\n\nOs principais focos são:",
         priorities: [
-          "Aprimorar processos internos",
-          "Fortalecer lideranças intermediárias",
-          "Consolidar padrões culturais e operacionais",
+          "Fortalecer processos e rotinas de gestão",
+          "Desenvolver liderança intermediária",
+          "Melhorar o uso de indicadores na tomada de decisão",
           "Proteger margem e lucro de variações operacionais"
         ],
-        institutional:
-          "O próximo passo é avançar para sua Sessão Estratégica K2 com as fundadoras do método (60 minutos online, sem custo).\n\nEm 60 minutos, você terá direcionamento claro sobre o que precisa ajustar para fortalecer sua estrutura e ampliar lucro.\n\nVagas limitadas semanalmente para garantir direcionamento individual.",
-        finalPhase: "Agora é hora de transformar diagnóstico em decisão."
+        direction:
+          "Sua empresa já saiu do estágio inicial, mas ainda não atingiu estabilidade suficiente para crescer sem oscilações.\n\nIsso significa que o crescimento pode acontecer — porém com risco de perda de eficiência e margem se a estrutura não evoluir junto.",
+        nextStep:
+          "Você poderá ser selecionado(a) para uma Sessão Estratégica K2 (online, 60 minutos).\n\nNessa sessão, vamos identificar quais ajustes estruturais vão trazer mais previsibilidade e consistência para sua operação.",
+        finalPhase: "Crescimento sem consistência gera esforço sem resultado proporcional."
       },
       escala: {
         colorClass: "indicator-escala",
-         title: "Estrutura Preparada para crescer",
-        diagnosis: "Sua rede já possui operação organizada, liderança ativa, equipe engajada e alinhamento entre operação, margem e lucro. O foco agora é elevar performance e explorar oportunidades para resultados ainda mais consistentes.",
+        title: "Estrutura Estratégica para Escala Sustentável",
+        diagnosis:
+          "Seu diagnóstico indica que sua empresa já possui um nível consistente de estrutura, com processos, liderança e gestão relativamente organizados.\n\nIsso significa que a operação já funciona de forma mais independente e com menor variação entre pessoas e momentos.",
+        impacts: [],
+        priorityIntro:
+          "Neste estágio, o desafio não é estruturar o básico. É elevar performance e eficiência.\n\nOs principais focos são:",
         priorities: [
-          "Desenvolver lideranças e gestão de indicadores",
-          "Otimizar processos e eficiência operacional",
-          "Ampliar margem e lucro mantendo crescimento sustentável"
+          "Otimização de margem e rentabilidade",
+          "Evolução de indicadores de performance",
+          "Desenvolvimento de liderança para escala",
+          "Expansão com controle e previsibilidade"
         ],
-        institutional:
-          "O próximo passo é avançar para sua Sessão Estratégica K2 com as fundadoras do método (60 minutos online, sem custo).\n\nEm 60 minutos, você terá direcionamento claro sobre o que precisa ajustar para fortalecer sua estrutura e ampliar lucro.\n\nVagas limitadas semanalmente para garantir direcionamento individual.",
-        finalPhase: "Agora é hora de transformar diagnóstico em decisão."
+        direction:
+          "Empresas nesse nível já não crescem por tentativa e erro. Elas crescem por decisão estratégica.\n\nO próximo passo não é corrigir falhas básicas, mas sim aumentar eficiência, margem e capacidade de escala sustentável.",
+        nextStep:
+          "Você poderá ser selecionado(a) para uma Sessão Estratégica K2 (online, 60 minutos).\n\nNessa sessão, vamos aprofundar oportunidades de otimização e crescimento para elevar ainda mais o nível de performance da sua empresa.",
+        finalPhase: "Crescimento sem otimização limita o potencial da empresa."
       }
     };
 
@@ -695,14 +723,38 @@
       step: state.step,
     });
 
-    // Gera lista de prioridades HTML
-    const prioritiesHtml = currentLevel.priorities.map(p => `<li>${escapeHtml(p)}</li>`).join("");
+    // Monta o payload completo enviado ao Apps Script (reutilizado no auto-envio e no CTA).
+    function buildSubmitPayload() {
+      return {
+        quizName: QUIZ_NAME,
+        lead: state.lead,
+        answers: state.answers,
+        answersDetailed: buildAnswersDetailed(),
+        score: { total: score.total, byOrgan: score.byOrgan },
+        maxScore,
+        levelKey: score.levelKey,
+        levelTitle: score.levelTitle,
+        diagnosis: currentLevel.diagnosis,
+        priorities: currentLevel.priorities,
+        direction: currentLevel.direction,
+        nextStep: currentLevel.nextStep,
+        finalPhase: currentLevel.finalPhase,
+        createdAt,
+        submittedAt: new Date().toISOString(),
+      };
+    }
+
+    // Listas e parágrafos do relatório
+    const impactsHtml = Array.isArray(currentLevel.impacts)
+      ? currentLevel.impacts.map((i) => `<li>${escapeHtml(i)}</li>`).join("")
+      : "";
+    const prioritiesHtml = currentLevel.priorities.map((p) => `<li>${escapeHtml(p)}</li>`).join("");
 
     const bodyHtml = `
       <div class="report-view" role="region" aria-label="Relatório de Resultado">
-        
+
         <div class="report-header">
-          <h2 class="panel__title">Avaliação Estratégica de Sua Empresa</h2>
+          <h2 class="panel__title">Avaliação Estratégica da Sua Empresa</h2>
           <p class="report-subtitle">Resultado do seu diagnóstico</p>
         </div>
 
@@ -714,11 +766,13 @@
         <div class="result-content">
           <div class="content-block">
             <h4 class="content-block__title">Diagnóstico</h4>
-            <p>${escapeHtml(currentLevel.diagnosis)}</p>
+            ${paragraphsHtml(currentLevel.diagnosis)}
+            ${impactsHtml ? `<ul class="priority-list">${impactsHtml}</ul>` : ""}
           </div>
 
           <div class="content-block content-block--priority">
             <h4 class="content-block__title">Prioridade Estratégica</h4>
+            ${paragraphsHtml(currentLevel.priorityIntro)}
             <ul class="priority-list">
               ${prioritiesHtml}
             </ul>
@@ -741,7 +795,13 @@
           </div>
 
           <div class="content-block">
-            <p class="institutional-msg">${escapeHtml(currentLevel.institutional)}</p>
+            <h4 class="content-block__title">Direcionamento</h4>
+            ${paragraphsHtml(currentLevel.direction)}
+          </div>
+
+          <div class="content-block">
+            <h4 class="content-block__title">Próximo Passo</h4>
+            ${paragraphsHtml(currentLevel.nextStep)}
           </div>
 
           <div class="final-highlight">
@@ -793,103 +853,35 @@
     }
 
     if (btn) {
-      btn.addEventListener("click", async function () {
+      btn.addEventListener("click", function () {
         // Evita duplo clique
         btn.disabled = true;
-      const oldText = btn.textContent;
-      btn.textContent = "Direcionando...";
-      if (hint) hint.textContent = "";
+        btn.textContent = "Direcionando...";
+        if (hint) hint.textContent = "";
 
-      const submittedAt = new Date().toISOString();
-      const payload = {
-        quizName: QUIZ_NAME,
-        lead: state.lead,
-        answers: state.answers,
-        answersDetailed: buildAnswersDetailed(),
-        score: { total: score.total, byOrgan: score.byOrgan },
-        maxScore,
-        levelKey: score.levelKey,
-        levelTitle: score.levelTitle,
-        diagnosis: currentLevel.diagnosis,
-        priorities: currentLevel.priorities,
-        institutional: currentLevel.institutional,
-        finalPhase: currentLevel.finalPhase,
-        createdAt,
-        submittedAt,
-      };
-
-      // Importante: abrir o WhatsApp imediatamente (antes de await) para não ser bloqueado.
-      const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
-      const fallbackWhatsappUrl =
-        "https://wa.me/5513991982145?text=" +
-        encodeURIComponent(
-          "Quero mais clareza e direção para meu negócio e saber como a K2 pode me ajudar."
-        );
-      const targetUrl = url || fallbackWhatsappUrl;
-
-      // Dispara integrações em background (não bloqueia o redirecionamento)
-      try {
-        if (window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function") {
-          window.GPSGAS.sendResultToAppsScript(payload);
-        }
-      } catch {
-        // noop
-      }
-
-      // Redireciona SEMPRE na mesma aba (mais confiável que popup)
-      window.location.href = targetUrl;
-      return;
-
-      try {
-        let firebaseResult = null;
-        let emailResult = null;
-        let gasResult = null;
-
-        // Firebase
-        if (typeof window.saveLeadAndAnswers === "function") {
-          firebaseResult = await window.saveLeadAndAnswers(payload);
-        } else if (window.GPSFirebase && typeof window.GPSFirebase.saveLeadAndAnswers === "function") {
-          firebaseResult = await window.GPSFirebase.saveLeadAndAnswers(payload);
-        } else {
-          console.log("[GPSFirebase] Não configurado/carregado. Payload:", payload);
+        // Garante a captura do lead (idempotente: já pode ter sido enviado ao concluir).
+        try {
+          submitResult(buildSubmitPayload());
+        } catch {
+          // noop
         }
 
-        // EmailJS
-        if (typeof window.sendResultEmail === "function") {
-          emailResult = await window.sendResultEmail(payload);
-        } else if (window.GPSEmail && typeof window.GPSEmail.sendResultEmail === "function") {
-          emailResult = await window.GPSEmail.sendResultEmail(payload);
-        } else {
-          console.log("[GPSEmail] Não configurado/carregado. Payload:", payload);
-        }
+        // Redireciona SEMPRE na mesma aba (mais confiável que popup).
+        const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
+        const fallbackWhatsappUrl =
+          "https://wa.me/5513991982145?text=" +
+          encodeURIComponent(
+            "Quero mais clareza e direção para meu negócio e saber como a K2 pode me ajudar."
+          );
+        window.location.href = url || fallbackWhatsappUrl;
+      });
+    }
 
-        // Google Apps Script (Webhook)
-        if (window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function") {
-          gasResult = await window.GPSGAS.sendResultToAppsScript(payload);
-        } else {
-          console.log("[GPSGAS] Não configurado/carregado. Payload:", payload);
-        }
-
-        const skippedFirebase = firebaseResult && firebaseResult.skipped === true;
-        const skippedEmail = emailResult && emailResult.skipped === true;
-        const skippedGas = gasResult && gasResult.skipped === true;
-        const didSomething =
-          (firebaseResult && firebaseResult.ok === true) ||
-          (emailResult && emailResult.ok === true) ||
-          (gasResult && gasResult.ok === true);
-
-        // Direcionamento já foi feito no início do clique.
-
-        // Feedback mínimo só quando algo foi realmente enviado
-        if (hint && didSomething) hint.textContent = "Solicitação registrada.";
-      } catch (err) {
-        console.warn("[GPS] Falha ao processar integrações:", err);
-        if (hint) hint.textContent = "Não foi possível enviar agora. Tente novamente.";
-      } finally {
-        btn.disabled = false;
-        btn.textContent = oldText;
-      }
-    });
+    // Captura o lead assim que o diagnóstico é gerado — não depende do clique no CTA.
+    try {
+      submitResult(buildSubmitPayload());
+    } catch {
+      // noop
     }
   }
 
@@ -929,6 +921,120 @@
     return escapeHtml(value).replaceAll("`", "&#96;");
   }
 
+  // Converte texto com quebras de linha em parágrafos HTML escapados.
+  function paragraphsHtml(value) {
+    return String(value || "")
+      .split(/\n+/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s) => `<p>${escapeHtml(s)}</p>`)
+      .join("");
+  }
+
+  let resultSent = false; // guarda de sessão contra envio duplicado do lead
+  let flushInFlight = false; // evita reenvio concorrente do lead pendente
+  let onlineListenerAttached = false; // garante um único listener de "online"
+
+  function isOnline() {
+    return typeof navigator === "undefined" || navigator.onLine !== false;
+  }
+
+  function saveSubmitFlags(extra) {
+    try {
+      const existing = window.GPSStorage.load();
+      window.GPSStorage.save({ ...existing, ...extra });
+    } catch {
+      // noop
+    }
+  }
+
+  // Envia o resultado/lead ao Apps Script de forma idempotente e resiliente:
+  // - não reenvia se já houve envio (submittedAt) ou nesta sessão (resultSent);
+  // - se estiver offline, guarda o payload e tenta de novo depois (init / evento "online").
+  function submitResult(payload) {
+    if (!payload || resultSent) return;
+
+    let persisted = {};
+    try {
+      persisted = window.GPSStorage.load() || {};
+    } catch {
+      // noop
+    }
+    if (persisted.submittedAt) {
+      resultSent = true;
+      return;
+    }
+
+    if (!isOnline()) {
+      saveSubmitFlags({ pendingSubmit: true, pendingPayload: JSON.stringify(payload) });
+      return;
+    }
+
+    if (!(window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function")) return;
+
+    resultSent = true; // otimista: evita duplo envio no mesmo carregamento
+    saveSubmitFlags({ pendingSubmit: true, pendingPayload: JSON.stringify(payload) });
+
+    Promise.resolve()
+      .then(function () {
+        return window.GPSGAS.sendResultToAppsScript(payload);
+      })
+      .then(function (res) {
+        if (res && res.skipped) {
+          // Webhook não configurado: nada a enviar.
+          saveSubmitFlags({ pendingSubmit: false, pendingPayload: "" });
+          return;
+        }
+        saveSubmitFlags({ submittedAt: new Date().toISOString(), pendingSubmit: false, pendingPayload: "" });
+      })
+      .catch(function () {
+        // Falhou: mantém pendente para nova tentativa futura.
+        resultSent = false;
+        saveSubmitFlags({ pendingSubmit: true, pendingPayload: JSON.stringify(payload) });
+      });
+  }
+
+  // Reenvia um lead que ficou pendente (ex.: usuário concluiu offline e voltou online).
+  function flushPendingSubmit() {
+    if (flushInFlight || !isOnline()) return;
+
+    let p = {};
+    try {
+      p = window.GPSStorage.load() || {};
+    } catch {
+      return;
+    }
+    if (!p.pendingSubmit || !p.pendingPayload || p.submittedAt) return;
+    if (!(window.GPSGAS && typeof window.GPSGAS.sendResultToAppsScript === "function")) return;
+
+    let payload;
+    try {
+      payload = JSON.parse(p.pendingPayload);
+    } catch {
+      saveSubmitFlags({ pendingSubmit: false, pendingPayload: "" });
+      return;
+    }
+
+    flushInFlight = true;
+    Promise.resolve()
+      .then(function () {
+        return window.GPSGAS.sendResultToAppsScript(payload);
+      })
+      .then(function (res) {
+        if (res && res.skipped) {
+          saveSubmitFlags({ pendingSubmit: false, pendingPayload: "" });
+          return;
+        }
+        saveSubmitFlags({ submittedAt: new Date().toISOString(), pendingSubmit: false, pendingPayload: "" });
+      })
+      .catch(function () {
+        // noop: tenta de novo no próximo carregamento / evento "online"
+      })
+      .then(function () {
+        flushInFlight = false;
+      });
+  }
+
   function init() {
     if (!window.GPSUI || !window.GPSStorage || !window.GPSQuestions) return;
 
@@ -939,6 +1045,27 @@
 
     persist();
     render();
+
+    // Resiliência: reenvia lead pendente e escuta a volta da conexão.
+    try {
+      flushPendingSubmit();
+    } catch {
+      // noop
+    }
+    try {
+      if (!onlineListenerAttached) {
+        onlineListenerAttached = true;
+        window.addEventListener("online", function () {
+          try {
+            flushPendingSubmit();
+          } catch {
+            // noop
+          }
+        });
+      }
+    } catch {
+      // noop
+    }
   }
 
   // computeScore/pickResult foram substituídos por calculateScore() conforme regra oficial

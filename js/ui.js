@@ -162,7 +162,7 @@
   function renderPlaceholder() {
     setContent(
       `
-      <h1 class="h1">Check-up K2 – Estrutura & Lucro</h1>
+      <h1 class="h1">CHECK-UP LOJA LUCRATIVA</h1>
       <p class="lead">Carregando diagnóstico...</p>
 
       <div class="panel" role="note" aria-label="Estrutura pronta">

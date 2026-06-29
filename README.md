@@ -1,6 +1,8 @@
-# GPS Diagnóstico
+# CHECK-UP LOJA LUCRATIVA
 
 Sistema de diagnóstico multi-etapas (HTML + CSS + JavaScript puro), com persistência em `localStorage`.
+
+> Captura de lead: **Google Apps Script** (`js/gas.js`, `window.GPSGASConfig`) — única integração ativa. As antigas integrações Firebase e EmailJS foram **removidas** (eram código morto, nunca acionadas no fluxo final).
 
 ## Como rodar
 
@@ -8,7 +10,7 @@ Sistema de diagnóstico multi-etapas (HTML + CSS + JavaScript puro), com persist
 2. Preencha o passo 1 e avance pelas perguntas.
 3. As respostas ficam salvas — se atualizar a página, o quiz continua do mesmo ponto.
 
-> Observação: por ser um projeto que roda via `file://`, algumas integrações externas dependem de internet (CDN). O quiz funciona normalmente mesmo sem configurar Firebase/EmailJS.
+> Observação: o quiz funciona normalmente mesmo sem internet. O envio do lead ao Google Apps Script é resiliente — acontece automaticamente ao concluir o diagnóstico e, se você estiver offline, fica pendente e é reenviado quando a conexão voltar.
 
 ## Estrutura
 
@@ -17,9 +19,8 @@ Sistema de diagnóstico multi-etapas (HTML + CSS + JavaScript puro), com persist
 - `js/ui.js` (render/efeitos de UI)
 - `js/questions.js` (12 perguntas / 13 passos)
 - `js/storage.js` (estado em `localStorage`)
-- `js/app.js` (navegação + pontuação + tela final)
-- `js/firebase.js` (opcional)
-- `js/email.js` (opcional)
+- `js/app.js` (navegação + pontuação + tela final + envio do lead)
+- `js/gas.js` (envio ao Google Apps Script)
 
 ## Estado salvo (localStorage)
 
@@ -31,57 +32,34 @@ Formato (base):
 {
   "step": 1,
   "answers": {
-    "q1": 2,
-    "q2": 1,
-    "q3": 0
+    "1": 2,
+    "2": 1,
+    "3": 0
   },
   "lead": {
-    "name": "",
-    "email": "",
-    "whatsapp": "",
-    "cidade": ""
+    "nome": "",
+    "empresa": "",
+    "whatsapp": ""
   },
   "completed": false
 }
 ```
 
-## Firebase (opcional)
+## Captura de lead (Google Apps Script)
 
-A função exigida está disponível como:
-
-- `saveLeadAndAnswers(data)` (global)
-- `window.GPSFirebase.saveLeadAndAnswers(data)`
-
-Para habilitar, defina `window.GPSFirebaseConfig` **antes** de clicar no botão da tela final:
+O resultado/lead é enviado a um Web App do Google Apps Script. Configure em `index.html`:
 
 ```js
-window.GPSFirebaseConfig = {
-  firebaseConfig: {
-    apiKey: "...",
-    authDomain: "...",
-    projectId: "..."
-  },
-  firestoreCollection: "gps_diagnostico_leads" // opcional
+window.GPSGASConfig = {
+  webhookUrl: "https://script.google.com/macros/s/..../exec",
+  token: "SEU_SECRET_TOKEN"
 };
 ```
 
-Se não estiver configurado, o sistema apenas faz `console.log` e segue normalmente.
+Comportamento:
 
-## EmailJS (opcional)
+- O envio acontece **automaticamente ao concluir o diagnóstico** (não depende do clique no CTA) e é **idempotente** (não duplica).
+- Se não houver configuração, o sistema apenas faz `console.log` e segue normalmente.
+- Se estiver offline, o lead fica pendente em `localStorage` e é reenviado no próximo carregamento ou quando a conexão voltar (evento `online`).
 
-A função exigida está disponível como:
-
-- `sendResultEmail(data)` (global)
-- `window.GPSEmail.sendResultEmail(data)`
-
-Para habilitar, defina `window.GPSEmailJSConfig`:
-
-```js
-window.GPSEmailJSConfig = {
-  publicKey: "...",
-  serviceId: "...",
-  templateId: "..."
-};
-```
-
-Se não estiver configurado, o sistema apenas faz `console.log` e segue normalmente.
+> ⚠️ **Segurança:** em site estático o `token` fica visível no código-fonte e **não autentica de verdade**. Rotacione-o periodicamente e proteja o endpoint **no próprio Apps Script** (validar Origin/Referer, limitar tamanho do payload, rate limiting / CAPTCHA). Trate o token apenas como filtro fraco anti-bot.

@@ -2,12 +2,16 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
+  <!-- Segurança: restringe de onde scripts/conexões/imagens podem vir (mitiga XSS e exfiltração caso uma CDN seja comprometida). GitHub Pages não permite headers HTTP, então a política vai via <meta>. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>Check-up K2 - Estrutura &amp; Lucro</title>
+  <title>CHECK-UP LOJA LUCRATIVA</title>
   <link rel="icon" href="./assets/favicon.png" />
   <link rel="stylesheet" href="./css/styles.css?v=20260223_12" />
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Segurança: versão fixa + Subresource Integrity (SRI). Impede que conteúdo alterado na CDN seja executado. -->
+  <script src="https://unpkg.com/lucide@1.22.0/dist/umd/lucide.min.js" integrity="sha384-TnesABAZXAtQhqlVENNq1yFPN48F7YMII/Ksrk9CdlFRnT1mQnD+o5BbHXh1P4ne" crossorigin="anonymous"></script>
 </head>
 <body class="is-loading">
   <div class="loader-overlay" id="appLoader" role="status" aria-live="polite" aria-label="Carregando">
@@ -21,14 +25,14 @@
   <a class="skip-link" href="#stepContent">Pular para o conteúdo</a>
 
   <main class="page">
-    <section class="card" aria-label="GPS Diagnóstico">
+    <section class="card" aria-label="CHECK-UP LOJA LUCRATIVA">
       <header class="card__header">
         <div class="header-top">
           <div class="brand" aria-label="Marca">
             <img
               class="brand__logo"
               src="./assets/logo.png"
-              alt="GPS Diagnóstico"
+              alt="CHECK-UP LOJA LUCRATIVA"
               loading="eager"
               decoding="async"
             />
@@ -52,7 +56,7 @@
     </section>
 
     <footer class="page__footer" aria-label="Rodapé">
-      <p class="footnote">© <span id="year"></span> Check-up K2 – Estrutura & Lucro</p>
+      <p class="footnote">© <span id="year"></span> CHECK-UP LOJA LUCRATIVA</p>
       <p class="footnote footnote--credit">
         Desenvolvido por
         <a href="https://agenciafuturadesign.com" target="_blank" rel="noopener noreferrer">FuturaDesign</a>
@@ -62,42 +66,23 @@
 
   <!-- CONFIGURAÇÕES DE INTEGRAÇÃO (Preencha os dados abaixo) -->
   <script>
-    /* 
-      1. FIREBASE (Banco de dados)
-      - Crie um projeto no console.firebase.google.com
-      - Adicione um web app
-      - Copie o objeto firebaseConfig
+    /*
+      Firebase e EmailJS foram REMOVIDOS: eram código morto (nunca eram acionados no
+      fluxo final). A captura de lead é feita exclusivamente pelo Google Apps Script abaixo.
     */
-    window.GPSFirebaseConfig = {
-      firebaseConfig: {
-        apiKey: "SUA_API_KEY_AQUI",
-        authDomain: "seu-projeto.firebaseapp.com",
-        projectId: "seu-projeto",
-        storageBucket: "seu-projeto.appspot.com",
-        messagingSenderId: "123456789",
-        appId: "1:123456789:web:abcdef"
-      },
-      firestoreCollection: "leads_checkup_k2" // Nome da coleção no banco
-    };
-
-    /* 
-      2. EMAILJS (Envio de email)
-      - Crie conta no emailjs.com
-      - Adicione um serviço (ex: Gmail)
-      - Crie um template de email
-      - Copie as chaves em Account > API Keys
-    */
-    window.GPSEmailJSConfig = {
-      publicKey: "SUA_PUBLIC_KEY_AQUI",
-      serviceId: "service_xxx",
-      templateId: "template_xxx"
-    };
 
     /*
       2.1. GOOGLE APPS SCRIPT (Webhook + Gmail HTML) - GRATUITO
       - Cole a URL /exec do Web App
       - Token: precisa ser o mesmo SECRET_TOKEN do Apps Script
       - Observação: em site público (GitHub Pages), esse token ficará visível no código.
+
+      ⚠️ SEGURANÇA (AÇÃO NECESSÁRIA NO SERVIDOR — não dá para resolver só no front):
+      Este `token` é servido publicamente e NÃO autentica de verdade (qualquer um lê via View Source).
+      1) ROTACIONE o SECRET_TOKEN no Apps Script (o atual deve ser considerado comprometido).
+      2) No próprio Apps Script (doPost), valide Origin/Referer, limite o tamanho do payload e
+         aplique rate limiting / CAPTCHA antes de gravar — essa é a defesa real contra spam/flood.
+      Trate este token apenas como um filtro fraco anti-bot, nunca como segredo.
     */
     window.GPSGASConfig = {
       webhookUrl: "https://script.google.com/macros/s/AKfycby9aMJ-VifaGWSvRIwORxhL-s47rIQgMlIs_z2JjTA4jJUOvpGHTTDwxa73idzoZnC9/exec",
@@ -136,12 +121,10 @@
     })();
   </script>
 
-  <script src="./js/ui.js?v=20260223_4" defer></script>
-  <script src="./js/questions.js?v=20260221_2" defer></script>
-  <script src="./js/storage.js?v=20260221_2" defer></script>
-  <script src="./js/firebase.js?v=20260221_2" defer></script>
-  <script src="./js/email.js?v=20260221_2" defer></script>
+  <script src="./js/ui.js?v=20260629_1" defer></script>
+  <script src="./js/questions.js?v=20260629_1" defer></script>
+  <script src="./js/storage.js?v=20260629_2" defer></script>
   <script src="./js/gas.js?v=20260221_2" defer></script>
-  <script src="./js/app.js?v=20260223_11" defer></script>
+  <script src="./js/app.js?v=20260629_2" defer></script>
 </body>
 </html>
