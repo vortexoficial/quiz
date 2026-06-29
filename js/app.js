@@ -51,7 +51,7 @@
     cerebro: {
       key: "cerebro",
       label: "Cérebro",
-      subtitle: "Liderança, Direção e Expansão",
+      subtitle: "Estratégia, Gestão e Crescimento",
       icon: "brain",
       className: "organ-chip--cerebro",
       badgeClass: "organ-badge--cerebro"
@@ -59,7 +59,7 @@
     coracao: {
       key: "coracao",
       label: "Coração",
-      subtitle: "Cultura, Equipe e Performance",
+      subtitle: "Cultura, Liderança e Equipe",
       icon: "heart",
       className: "organ-chip--coracao",
       badgeClass: "organ-badge--coracao"
@@ -67,7 +67,7 @@
     pulmao: {
       key: "pulmao",
       label: "Pulmão",
-      subtitle: "Vendas, margem e lucro",
+      subtitle: "Vendas, Margem e Lucro",
       icon: "pulmao",
       className: "organ-chip--pulmao",
       badgeClass: "organ-badge--pulmao"
@@ -75,7 +75,7 @@
     sangue: {
       key: "sangue",
       label: "Sangue",
-      subtitle: "Processos, Padronização e Experiência",
+      subtitle: "Padronização e Experiência do Cliente",
       icon: "droplet",
       className: "organ-chip--sangue",
       badgeClass: "organ-badge--sangue"
