@@ -869,7 +869,7 @@
         // Redireciona SEMPRE na mesma aba (mais confiável que popup).
         const url = typeof globalThis.CTA_URL === "string" ? globalThis.CTA_URL.trim() : "";
         const fallbackWhatsappUrl =
-          "https://wa.me/5513991982145?text=" +
+          "https://wa.me/5513978139761?text=" +
           encodeURIComponent(
             "Quero mais clareza e direção para meu negócio e saber como a K2 pode me ajudar."
           );
