@@ -419,9 +419,15 @@
       levelTitle = "Estrutura em Consolidação";
     }
 
-    // regra de segurança: se qualquer órgão <= 2, reduz 1 nível
-    const hasCriticalOrgan = Object.values(byOrgan).some((v) => Number(v) <= 5);
-    if (hasCriticalOrgan) {
+    // nível que a nota sozinha indicaria, antes da regra de segurança
+    const levelBeforeRule = levelKey;
+    const titleBeforeRule = levelTitle;
+
+    // órgãos abaixo do nível intermediário (6 de 9)
+    const criticalOrgans = Object.keys(byOrgan).filter((k) => Number(byOrgan[k]) <= 5);
+
+    // regra de segurança: com qualquer órgão crítico, reduz 1 nível
+    if (criticalOrgans.length) {
       if (levelKey === "escala") {
         levelKey = "consolidacao";
         levelTitle = "Estrutura em Consolidação";
@@ -431,7 +437,11 @@
       }
     }
 
-    return { total, byOrgan, levelKey, levelTitle };
+    // só houve rebaixamento se o nível realmente mudou.
+    // quem já estava em "fragilizada" continua igual: a regra não alterou nada.
+    const demoted = levelKey !== levelBeforeRule;
+
+    return { total, byOrgan, levelKey, levelTitle, criticalOrgans, demoted, levelBeforeRule, titleBeforeRule };
   }
 
   function renderQuestionStep() {
@@ -692,21 +702,68 @@
         .filter((x) => x && x.id);
     }
 
+    const criticalKeys = Array.isArray(score.criticalOrgans) ? score.criticalOrgans : [];
+
     const organReading = [ORGAN_UI.cerebro, ORGAN_UI.coracao, ORGAN_UI.pulmao, ORGAN_UI.sangue]
       .map((o) => {
         const value = score.byOrgan && Object.prototype.hasOwnProperty.call(score.byOrgan, o.key) ? score.byOrgan[o.key] : 0;
+        const isCritical = criticalKeys.indexOf(o.key) !== -1;
+        const cardClass = isCritical ? "organ-reading-card organ-reading-card--critical" : "organ-reading-card";
+        const tag = isCritical ? `<span class="organ-reading-card__tag">Ponto crítico</span>` : "";
         return `
-          <div class="organ-reading-card">
+          <div class="${cardClass}">
             <div class="organ-reading-card__head">
               <span class="organ-reading-card__icon" aria-hidden="true">${renderLucideOrPulmaoIcon(o.icon)}</span>
               <span class="organ-reading-card__name">${escapeHtml(o.label)}</span>
             </div>
             <div class="organ-reading-card__desc">${escapeHtml(o.subtitle)}</div>
             <div class="organ-reading-card__score">${Number(value)}<span class="organ-reading-card__limit">/ 9</span></div>
+            ${tag}
           </div>
         `.trim();
       })
       .join("");
+
+    // Aviso da regra de segurança.
+    // Só aparece quando a regra REALMENTE mudou o enquadramento. Quem já estava
+    // em "Estrutura Fragilizada" não foi rebaixado, então não há o que explicar.
+    const criticalNoticeHtml = (function () {
+      if (!score.demoted || !criticalKeys.length) return "";
+
+      const nomes = criticalKeys.map(function (k) {
+        return ORGAN_UI[k] && ORGAN_UI[k].label ? ORGAN_UI[k].label : k;
+      });
+
+      const lista =
+        nomes.length === 1
+          ? `o <strong>${escapeHtml(nomes[0])}</strong>`
+          : `os órgãos <strong>${escapeHtml(nomes.slice(0, -1).join(", "))}</strong> e <strong>${escapeHtml(nomes[nomes.length - 1])}</strong>`;
+
+      const verbo = nomes.length === 1 ? "está" : "estão";
+
+      // com um órgão só, o nome já foi dito na frase: mostra apenas a nota
+      const detalhe =
+        criticalKeys.length === 1
+          ? `${Number(score.byOrgan[criticalKeys[0]])}/9`
+          : criticalKeys
+              .map(function (k) {
+                const label = ORGAN_UI[k] && ORGAN_UI[k].label ? ORGAN_UI[k].label : k;
+                return `${escapeHtml(label)} ${Number(score.byOrgan[k])}/9`;
+              })
+              .join(" · ");
+
+      return `
+        <div class="critical-notice" role="note">
+          <div class="critical-notice__title">Por que a classificação foi ajustada</div>
+          <p class="critical-notice__text">
+            Sua pontuação total alcança o nível <strong>${escapeHtml(score.titleBeforeRule)}</strong>,
+            mas ${lista} ${verbo} em nível crítico (${detalhe}).
+            Como uma área comprometida limita o desempenho de todas as outras,
+            o resultado foi enquadrado como <strong>${escapeHtml(score.levelTitle)}</strong>.
+          </p>
+        </div>
+      `.trim();
+    })();
 
     // Salva payload final no localStorage
     const createdAt = new Date().toISOString();
@@ -792,6 +849,8 @@
                 ${organReading}
               </div>
             </div>
+
+            ${criticalNoticeHtml}
           </div>
 
           <div class="content-block">
@@ -811,7 +870,7 @@
 
         <div class="action-area">
           <button class="btn-premium-cta" type="button" id="sessionBtn">
-            Quero solicitar minha<span class="cta-break-mobile"><br /></span>Sessão Estratégica&nbsp;K2
+            Quero solicitar minha <span class="cta-break-mobile"><br /></span>Sessão Estratégica&nbsp;K2
           </button>
           
           <button class="btn-text-back" type="button" id="restartBtn">

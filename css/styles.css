@@ -1687,3 +1687,69 @@ body.is-loading .skip-link {
   padding: 0 16px !important; /* Reset padding to center text vertically */
 }
 
+
+/* ============================================================
+   Ponto crítico por órgão e aviso de ajuste na classificação
+   ============================================================ */
+
+.organ-reading-card--critical {
+  border-color: #C2410C;
+  background: #FFF8F4;
+}
+
+.organ-reading-card--critical .organ-reading-card__score {
+  color: #C2410C;
+}
+
+.organ-reading-card__tag {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: #C2410C;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.critical-notice {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid #C2410C;
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  background: #FFF8F4;
+}
+
+.critical-notice__title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #C2410C;
+  margin-bottom: 6px;
+}
+
+.critical-notice__text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.critical-notice__text strong {
+  font-weight: 700;
+}
+
+@media print {
+  .organ-reading-card--critical,
+  .critical-notice {
+    background: #FFF8F4 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
