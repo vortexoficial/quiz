@@ -395,32 +395,32 @@
       const key = String(q.id);
       const points = Number(answerMap[key]);
       if (!Number.isFinite(points)) continue;
-      const p = Math.min(Math.max(Math.floor(points), 0), 2);
+      const p = Math.min(Math.max(Math.floor(points), 1), 3);
       total += p;
       if (q.organ && Object.prototype.hasOwnProperty.call(byOrgan, q.organ)) {
         byOrgan[q.organ] += p;
       }
     }
 
-    // teto por órgão: 0..6 | teto total: 0..24
+    // teto por órgão: 3..9 | teto total: 12..36
     for (const k of Object.keys(byOrgan)) {
-      byOrgan[k] = Math.min(Math.max(byOrgan[k], 0), 6);
+      byOrgan[k] = Math.min(Math.max(byOrgan[k], 3), 9);
     }
-    total = Math.min(Math.max(total, 0), 24);
+    total = Math.min(Math.max(total, 12), 36);
 
     // classificação base
     let levelKey = "fragilizada";
     let levelTitle = "Estrutura Fragilizada";
-    if (total >= 18) {
+    if (total >= 30) {
       levelKey = "escala";
       levelTitle = "Estrutura Estratégica para Escala Sustentável";
-    } else if (total >= 12) {
+    } else if (total >= 24) {
       levelKey = "consolidacao";
       levelTitle = "Estrutura em Consolidação";
     }
 
     // regra de segurança: se qualquer órgão <= 2, reduz 1 nível
-    const hasCriticalOrgan = Object.values(byOrgan).some((v) => Number(v) <= 2);
+    const hasCriticalOrgan = Object.values(byOrgan).some((v) => Number(v) <= 5);
     if (hasCriticalOrgan) {
       if (levelKey === "escala") {
         levelKey = "consolidacao";
@@ -589,7 +589,7 @@
     }
 
     const score = calculateScore(state.answers);
-    const maxScore = 24;
+    const maxScore = 36;
 
     // Dados estruturados para o relatório premium
     const LEVEL_DATA = {
@@ -673,7 +673,7 @@
         .map((q, index) => {
           const qid = String(q.id);
           const points = Number(answerMap[qid]);
-          const safePoints = Number.isFinite(points) ? Math.min(Math.max(Math.floor(points), 0), 2) : null;
+          const safePoints = Number.isFinite(points) ? Math.min(Math.max(Math.floor(points), 1), 3) : null;
           const selectedOption = Array.isArray(q.options)
             ? q.options.find((o) => Number(o.points) === safePoints)
             : null;
@@ -702,7 +702,7 @@
               <span class="organ-reading-card__name">${escapeHtml(o.label)}</span>
             </div>
             <div class="organ-reading-card__desc">${escapeHtml(o.subtitle)}</div>
-            <div class="organ-reading-card__score">${Number(value)}<span class="organ-reading-card__limit">/ 6</span></div>
+            <div class="organ-reading-card__score">${Number(value)}<span class="organ-reading-card__limit">/ 9</span></div>
           </div>
         `.trim();
       })
