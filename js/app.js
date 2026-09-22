@@ -792,6 +792,11 @@
         levelKey: score.levelKey,
         levelTitle: score.levelTitle,
         diagnosis: currentLevel.diagnosis,
+        // impacts completa a frase do diagnóstico ("ainda oscila em:") e
+        // priorityIntro abre a lista de prioridades. Os dois já apareciam na
+        // tela final, mas não eram enviados, e o e-mail saía truncado.
+        impacts: currentLevel.impacts,
+        priorityIntro: currentLevel.priorityIntro,
         priorities: currentLevel.priorities,
         direction: currentLevel.direction,
         nextStep: currentLevel.nextStep,
