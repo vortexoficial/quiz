@@ -789,6 +789,10 @@
         answersDetailed: buildAnswersDetailed(),
         score: { total: score.total, byOrgan: score.byOrgan },
         maxScore,
+        // Tetos da escala atual (1 a 3 por pergunta, 3 perguntas por órgão).
+        // Vão explícitos para o e-mail nunca ter que adivinhar o denominador.
+        maxPerQuestion: 3,
+        maxPerOrgan: 9,
         levelKey: score.levelKey,
         levelTitle: score.levelTitle,
         diagnosis: currentLevel.diagnosis,
